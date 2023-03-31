@@ -2998,7 +2998,7 @@ html.menu-opened body {
     left: 50%;
     top: -6px;
     transform: translateX(-50%) translateY(-100%);
-    background: #420ba1;
+    /* background: #420ba1; */
     text-align: center;
     color: #fff;
     font-size: 12px;

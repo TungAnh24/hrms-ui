@@ -26,54 +26,54 @@
                     </div>
                     <ul>
                         <li class="active">
-                            <a href="/index"><img src="assets/img/home.svg" alt="sidebar_img">
-                                <span>Dashboard</span></a>
+                            <a href="/trang-chu"><img src="assets/img/home.svg" alt="sidebar_img">
+                                <span>Trang chủ</span></a>
                         </li>
                         <li>
                             <a href="/user"><img src="assets/img/employee.svg" alt="sidebar_img"><span>
-                                    Employees</span></a>
+                                    Nhân viên</span></a>
                         </li>
                         <li>
                             <a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
-                                    Company</span></a>
+                                    Công ty</span></a>
                         </li>
                         <li>
                             <a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img">
-                                <span>Calendar</span></a>
+                                <span>Lịch</span></a>
                         </li>
                         <li>
                             <a href="leave.html"><img src="assets/img/leave.svg" alt="sidebar_img">
-                                <span>Leave</span></a>
+                                <span>Nghỉ phép</span></a>
                         </li>
                         <li>
                             <a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>
                         </li>
                         <li>
-                            <a href="report.html"><img src="assets/img/report.svg" alt="sidebar_img"><span>Report</span></a>
+                            <a href="report.html"><img src="assets/img/report.svg" alt="sidebar_img"><span>Báo cáo</span></a>
                         </li>
                         <li>
                             <a href="manage.html"><img src="assets/img/manage.svg" alt="sidebar_img">
-                                <span>Manage</span></a>
+                                <span>Quản lý</span></a>
                         </li>
                         <li>
                             <a href="settings.html"><img src="assets/img/settings.svg"
-                                    alt="sidebar_img"><span>Settings</span></a>
+                                    alt="sidebar_img"><span>Cài đặt</span></a>
                         </li>
                         <li>
                             <a href="profile.html"><img src="assets/img/profile.svg" alt="sidebar_img">
-                                <span>Profile</span></a>
+                                <span>Hồ sơ</span></a>
                         </li>
                     </ul>
                     <ul class="logout">
                         <li>
-                            <a href="profile.html"><img src="assets/img/logout.svg" alt="sidebar_img"><span>Log
-                                    out</span></a>
+                            <a href="profile.html"><img src="assets/img/logout.svg" alt="sidebar_img"><span>Đăng xuất</span></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <router-view></router-view>
 </template>
 
 <script>

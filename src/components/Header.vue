@@ -3,10 +3,10 @@
 
         <div class="header-left">
             <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="Logo">
+                <img src="assets/img/hrms-logo.png" alt="Logo">
             </a>
             <a href="index.html" class="logo logo-small">
-                <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+                <img src="assets/img/hrms-small.png" alt="Logo" width="30" height="30">
             </a>
             <a href="javascript:void(0);" id="toggle_btn">
                 <span class="bar-icon">

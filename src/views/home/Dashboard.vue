@@ -4,7 +4,7 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-name 	mb-4">
-                <h4 class="m-0"><img src="assets/img/profile.jpg" class="mr-1" alt="profile" /> Welcome Admin</h4>
+                <h4 class="m-0"><img src="assets/img/profile.jpg" class="mr-1" alt="profile" /> Trang chủ</h4>
                 <label>Sun, 29 Nov 2019</label>
             </div>
             <div class="row mb-4">
@@ -12,20 +12,20 @@
                     <div class="breadcrumb-path ">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-3"
-                                        alt="breadcrumb" />Home</a>
+                                        alt="breadcrumb" />Trang chủ</a>
                             </li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Thống kê</li>
                         </ul>
-                        <h3>Admin Dashboard</h3>
+                        <h3>Quản trị trang chủ</h3>
                     </div>
                 </div>
                 <div class="col-xl-6 col-sm-12 col-12">
                     <div class="row">
                         <div class="col-xl-6 col-sm-6 col-12">
-                            <a class="btn-dash" href="#"> Admin Dashboard</a>
+                            <a class="btn-dash" href="#"> Quản trị trang chủ</a>
                         </div>
                         <div class="col-xl-6 col-sm-6 col-12">
-                            <a class="btn-emp" href="index-employee.html">Employee Dashboard</a>
+                            <a class="btn-emp" href="index-employee.html">Quản trị nhân viên</a>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="card board1 fill1 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                                <label>Employees</label>
+                                <label>Số nhân viên</label>
                                 <h4>700</h4>
                             </div>
                             <div class="card_widget_img">
@@ -48,7 +48,7 @@
                     <div class="card board1 fill2 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                                <label>Companies</label>
+                                <label>Số công ty</label>
                                 <h4>30</h4>
                             </div>
                             <div class="card_widget_img">
@@ -74,7 +74,7 @@
                     <div class="card board1 fill4 ">
                         <div class="card-body">
                             <div class="card_widget_header">
-                                <label>Salary</label>
+                                <label>Lương</label>
                                 <h4>$5.8M</h4>
                             </div>
                             <div class="card_widget_img">

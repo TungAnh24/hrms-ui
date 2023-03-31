@@ -3,22 +3,29 @@ import HomeView from "../views/HomeView.vue";
 import DashboardVue from "../views/home/Dashboard.vue"
 import UserIndex from "../views/user/UserIndex.vue"
 import UserList from "../views/user/UserList.vue"
+import GridUser from "../views/user/GridUser.vue"
 
 const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: () => import(`../components/Login.vue`),
+  },
   {
     path: "/",
     name: "home",
     component: HomeView,
   },
   {
-    path: "/index",
-    name: "index",
+    path: "/trang-chu",
+    name: "trang-chu",
     component: DashboardVue,
   },
   {
     path: "/user",
     name: "user",
-    component: UserIndex,
+    component: UserIndex
+    ,
     children: [
       {
         path: "list",
@@ -31,6 +38,11 @@ const routes = [
     path: "/user-list",
     name: "user-list",
     component: UserList,
+  },
+  {
+    path: "/user-grid",
+    name: "user-grid",
+    component: GridUser,
   },
   {
     path: "/about",

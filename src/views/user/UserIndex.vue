@@ -4,15 +4,15 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
-                <div class="col-xl-12 col-sm-12 col-12">
+                <!-- <div class="col-xl-12 col-sm-12 col-12">
                     <div class="breadcrumb-path mb-4">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-2"
-                                        alt="breadcrumb" />Home</a>
+                            <li class="breadcrumb-item"><a href="/trang-chu"><img src="assets/img/dash.png" class="mr-2"
+                                        alt="breadcrumb" />Trang chủ</a>
                             </li>
-                            <li class="breadcrumb-item active"> Employees</li>
+                            <li class="breadcrumb-item active"> Nhân viên</li>
                         </ul>
-                        <h3>Employees</h3>
+                        <h3>Nhân viên</h3>
                     </div>
                 </div>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -22,20 +22,20 @@
                             <li><a href="employee-team.html">Teams</a></li>
                             <li><a href="employee-office.html">Offices</a></li>
                         </ul>
-                        <a class="btn-add" href="add-employee.html"><i data-feather="plus"></i> Add Person</a>
+                        <a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm mới</a>
                     </div>
-                </div>
+                </div> -->
+                <UserHeader></UserHeader>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                         <div class="col-xl-10 col-sm-8 col-12 ">
-                            <label class="employee_count">7 People</label>
+                            <label class="employee_count">7 Người</label>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
-                            <!-- <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a> -->
-                            <router-link to="/user/list" class="btn-view"><i data-feather="grid"></i> </router-link>
+                            <a href="/user-grid" class="btn-view "><i data-feather="grid"></i> </a>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
-                            <a href="#" class="btn-view active"><i data-feather="list"></i> </a>
+                            <a href="/user-list" class="btn-view active"><i data-feather="list"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -48,185 +48,40 @@
                             <table class="table  custom-table no-footer">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Line Manager</th>
-                                        <th>Team</th>
-                                        <th>Office</th>
-                                        <th>Permissions</th>
-                                        <th>Status</th>
+                                        <th>Tài khoản</th>
+                                        <th>Họ tên</th>
+                                        <th>Vị trí</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Email</th>
+                                        <th>Phòng ban</th>
+                                        <th>Trạng thái</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-for="(user, index) in userList" :key="index">
                                     <tr>
                                         <td>
                                             <div class="table-img">
                                                 <a href="profile.html">
                                                     <img src="assets/img/profiles/avatar-13.jpg" alt="profile"
-                                                        class="img-table" /><label>Sean Black</label>
+                                                        class="img-table" /><label>{{ user.username }}</label>
                                                 </a>
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="action_label">Richard Wilson </label>
+                                            <label class="action_label">{{ user.fullName }} </label>
                                         </td>
                                         <td>
-                                            <label class="action_label2">Design </label>
+                                            <label class="text-primary">{{ user.role }} </label>
                                         </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
+                                        <td><label>{{ user.phone }} </label></td>
+                                        <td><label>{{user.email}}</label></td>
+                                        <td>
+                                            <label>{{ user.departmentName }}</label>
+                                        </td>
                                         <td class="tab-select">
                                             <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-16.jpg" alt="profile"
-                                                        class="img-table" /><label>Linda Craver</label>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label">Richard Wilson </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">IOS </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-17.jpg" alt="profile"
-                                                        class="img-table" />
-                                                </a>
-                                                <label>Jenni Sims</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label">Richard Wilson </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">Android </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-19.jpg" alt="profile"
-                                                        class="img-table" />
-                                                </a>
-                                                <label>Stacey Linville</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label">Richard Wilson </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">Testing </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-14.jpg" alt="profile"
-                                                        class="img-table" />
-                                                </a>
-                                                <label>Maria Cotton</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label">Richard Wilson </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">PHP </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-18.jpg" alt="profile"
-                                                        class="img-table" />
-                                                </a>
-                                                <label>John Gibbs</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label">Richard Wilson </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">PHP </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Team Lead</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table-img">
-                                                <a href="profile.html">
-                                                    <img src="assets/img/profiles/avatar-10.jpg" alt="profile"
-                                                        class="img-table" />
-                                                </a>
-                                                <label>Richard Wilson</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="action_label in_active">No </label>
-                                        </td>
-                                        <td>
-                                            <label class="action_label2">Business </label>
-                                        </td>
-                                        <td><label>Focus Technologies </label></td>
-                                        <td><label>Super Admin</label></td>
-                                        <td class="tab-select">
-                                            <select class="select">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
+                                                <option value="active">Hoạt động</option>
+                                                <option value="inactive">Không hoạt động</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -244,11 +99,33 @@
 
 import HeaderVue from '@/components/Header.vue';
 import SidebarVue from '@/components/Sidebar.vue';
+import UserHeader from './UserHeader.vue';
+import axios from 'axios';
 export default {
     name: `UserIndex`,
     components: {
         HeaderVue,
-        SidebarVue
+        SidebarVue,
+        UserHeader
+    },
+    data() {
+        return {
+            userList: null
+        }
+    },
+    methods: {
+        async getUserList() {
+            await axios.get(`/user/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.userList = res.data.data
+                    }
+                    console.log(this.userList)
+                }).catch(err => console.log(err));
+        }
+    },
+    created() {
+        this.getUserList()
     },
     mounted() {
         afterRender();

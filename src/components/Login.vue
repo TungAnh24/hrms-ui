@@ -1,5 +1,5 @@
 <template>
-    <div class="main-wrapper login-body">
+	<div class="main-wrapper login-body">
 		<div class="login-wrapper">
 			<div class="container">
 				<img class="img-fluid logo-dark mb-2" src="assets/img/logo.png" alt="Logo">
@@ -8,15 +8,15 @@
 						<div class="login-right-wrap">
 							<h1>Login</h1>
 							<p class="account-subtitle">Access to our dashboard</p>
-							<form action="index.html">
+							<form @submit.prevent="handelLogin">
 								<div class="form-group">
 									<label class="form-control-label">Email Address</label>
-									<input type="email" class="form-control">
+									<input type="text" class="form-control" v-model="username">
 								</div>
 								<div class="form-group">
 									<label class="form-control-label">Password</label>
 									<div class="pass-group">
-										<input type="password" class="form-control pass-input">
+										<input type="password" class="form-control pass-input" v-model="password">
 										<span class="fas fa-eye toggle-password"></span>
 									</div>
 								</div>
@@ -57,7 +57,26 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
-    name: `Login`
+	name: `Login`,
+	data() {
+		return {
+			username: ``,
+			password: ``
+		}
+	},
+	methods: {
+		async handelLogin() {
+			const res = await axios.post(`auth/sign-in`, {
+				username: this.username,
+				password: this.password
+			});
+			localStorage.setItem(`token`, res.data.accessToken);
+			console.log(res)
+		}
+	}
 }
 </script>

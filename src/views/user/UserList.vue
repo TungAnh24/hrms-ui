@@ -4,7 +4,7 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
-                <div class="col-xl-12 col-sm-12 col-12">
+                <!-- <div class="col-xl-12 col-sm-12 col-12">
                     <div class="breadcrumb-path mb-4">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-2"
@@ -22,16 +22,17 @@
                             <li><a href="employee-team.html">Teams</a></li>
                             <li><a href="employee-office.html">Offices</a></li>
                         </ul>
-                        <a class="btn-add" href="add-employee.html"><i data-feather="plus"></i> Add Person</a>
+                        <a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Add Person</a>
                     </div>
-                </div>
+                </div> -->
+                <user-header></user-header>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                         <div class="col-xl-10 col-sm-8 col-12 ">
                             <label class="employee_count">7 People</label>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
-                            <a href="employee-grid.html" class="btn-view "><i data-feather="grid"></i> </a>
+                            <a href="/user-grid" class="btn-view "><i data-feather="grid"></i> </a>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
                             <a href="#" class="btn-view active"><i data-feather="list"></i> </a>
@@ -40,8 +41,7 @@
                 </div>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="card">
-                        <router-view></router-view>
-                        <div class="container-xl">
+                        <div class="container-xl" style="max-width: 100%;">
                             <div class="table-responsive">
                                 <div class="table-wrapper">
                                     <div class="table-title">
@@ -198,7 +198,7 @@
         </div>
     </div>
     <!-- Edit Modal HTML -->
-    <div id="addEmployeeModal" class="modal fade">
+    <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
@@ -207,61 +207,81 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" required>
-                        </div>
+                        <div class="col-xl-12 col-sm-12 col-12 ">
+						<div class="card ">
+							<div class="card-header">
+								<h2 class="card-titles">Employment Details<span>Let everyone know the essentials so
+										they're fully prepared.</span></h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-xl-5 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Tên tài khoản">
+										</div>
+									</div>
+									<div class="col-xl-4 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Mật khẩu">
+										</div>
+									</div>
+                                    <div class="col-xl-3 col-sm-12 col-12 ">
+										<div class="form-group">
+											<select class="select">
+												<option value="Select leave">Chọn vị trí </option>
+												<option value="leave">HR</option>
+												<option value="leave">President</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xl-5 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Họ tên">
+										</div>
+									</div>
+									<div class="col-xl-7 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Địa chỉ">
+										</div>
+									</div>
+								</div>
+                                <div class="row">
+									<div class="col-xl-5 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Số điện thoại">
+										</div>
+									</div>
+									<div class="col-xl-7 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Email">
+										</div>
+									</div>
+								</div>
+                                <div class="row">
+									<div class="col-xl-5 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Số tài khoản">
+										</div>
+									</div>
+                                    <div class="col-xl-7 col-sm-12 col-12 ">
+										<div class="form-group">
+											<select class="select">
+												<option value="Select leave">Ngân hàng </option>
+												<option value="leave">Techcombank</option>
+												<option value="leave">Vietcombank</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-success" value="Add">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Edit Modal HTML -->
-    <div id="editEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-info" value="Save">
                     </div>
                 </form>
             </div>
@@ -295,12 +315,14 @@
 
 import Header from '../../components/Header.vue'
 import Sidebar from '../../components/Sidebar.vue'
+import UserHeader from './UserHeader.vue';
 
 export default {
     name: `UserList`,
     components: {
         Header,
-        Sidebar
+        Sidebar,
+        UserHeader
     },
     mounted() {
         afterRender();
@@ -316,7 +338,7 @@ body {
     color: #566787;
     background: #f5f5f5;
     font-family: 'Varela Round', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .table-responsive {
@@ -545,7 +567,7 @@ table.table .avatar {
 
 /* Modal styles */
 .modal .modal-dialog {
-    max-width: 400px;
+    max-width: 1000px;
 }
 
 .modal .modal-header,
