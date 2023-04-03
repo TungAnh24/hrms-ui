@@ -73,9 +73,12 @@ export default {
 			const res = await axios.post(`auth/sign-in`, {
 				username: this.username,
 				password: this.password
-			});
-			localStorage.setItem(`token`, res.data.accessToken);
-			console.log(res)
+			})
+			.then(res => {
+				localStorage.setItem(`token`, res.data.accessToken);
+				console.log(res);
+				this.$router.push(`/trang-chu`);
+			})
 		}
 	}
 }

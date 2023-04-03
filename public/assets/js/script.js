@@ -71,10 +71,9 @@ function formatState(state) {
   }
 };
 
-$
-
 $(document).ready(function () {
   $('.selectBank').select2({
+    placeholder: "Ngân hàng",
     templateResult: formatState
   });
 })

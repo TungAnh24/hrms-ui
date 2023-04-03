@@ -51,9 +51,9 @@
 										</div>
 										<div class="col-xl-3 col-sm-12 col-12 ">
 											<div class="form-group">
-												<select class="select" name="roleId" v-model="user.roleId">
-													<option selected disabled>Vị trí </option>
-													<option v-for="role in roleList" :value="role.id">{{ role.roleName }}
+												<select v-model="user.rolesId" :options="roleList" class="selectRole" name="rolesId" multiple="multiple" style="min-height: 70px;">
+													<option v-for="role in roleList" :value="role.id">
+														<label>{{ role.roleName }}</label>
 													</option>
 												</select>
 											</div>
@@ -91,9 +91,9 @@
 										</div>
 										<div class="col-xl-7 col-sm-12 col-12 ">
 											<div class="form-group">
-												<select @change="onChange($event)" id="bankId" name="bankId"
-													class="select selectBank" style="width: 100%;">
-													<option selected disabled value="null">Ngân hàng</option>
+												<select id="bankId" name="bankId" v-model="user.bankShortName"
+													class=" selectBank" style="width: 100%;">
+													<option disabled>Ngân hàng</option>
 													<option :linkIcon=bank.logo v-for="bank in bankList"
 														:key="bank.shortName" :value="bank.shortName">
 														{{ bank.name }} ( {{ bank.shortName }} )
@@ -101,6 +101,9 @@
 												</select>
 											</div>
 										</div>
+										<p>Bank account: {{ user.bankAccount }}</p>
+										<p>RoleIds: {{ user.rolesId }}</p>
+										<p>Bank shortName: {{ user.bankShortName }}</p>
 									</div>
 								</div>
 							</div>
@@ -130,9 +133,9 @@ export default {
 				phone: ``,
 				address: ``,
 				bankAccount: ``,
-				bankFullName: ``,
-				bankShortName: ``,
-				roleId: []
+				bankFullName: `Techcombank`,
+				bankShortName: `TCB`,
+				rolesId: null
 			},
 			roleList: null,
 			bankList: null
@@ -140,11 +143,12 @@ export default {
 	},
 	methods: {
 		async createUser() {
-			await axios.post(`user/sign-up`, this.user)
+			await axios.post(`user/create-user`, this.user)
 				.then((res) => {
 					if (res) {
+						debugger;
 						this.$router.push("/user");
-						console.log(res);
+						console.log(res.data);
 					}
 				})
 				.catch((error) => console.log(error));
@@ -155,7 +159,7 @@ export default {
 				.then(res => {
 					if (res != null) {
 						this.roleList = res.data.data;
-						console.log(this.roleList.data)
+						console.log(this.roleList)
 					}
 				}).catch((error) => {
 					console.log(error)
@@ -167,14 +171,16 @@ export default {
 				.then((res) => {
 					if (res != null) {
 						this.bankList = res.data.data;
-						console.log(this.bankList.data)
+						console.log(this.bankList)
 					}
 				}).catch(err => console.log(err));
 		},
 
 		onChange: function (event) {
 			debugger;
-			this.user.bankShortName = event.target.value
+			var test = $("#bankId option:selected").val();
+			// this.user.bankShortName = event.target.value
+			this.user.bankShortName = test;
 		}
 	},
 	created() {

@@ -578,7 +578,7 @@ table.table .avatar {
 
 .modal .modal-content {
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 10px;
 }
 
 .modal .modal-footer {
