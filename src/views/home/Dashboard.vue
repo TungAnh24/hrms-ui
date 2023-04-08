@@ -136,27 +136,30 @@
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
-                            <h4 class="card-title">Total Salary By Unit</h4>
+                            <h4 class="card-title">Danh sách nhân viên</h4>
                         </div>
-                        <div class="card-body">
-                            <div class="team-list">
-                                <div class="team-view">
-                                    <div class="team-img">
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="avatar" />
+                        <div class="card-body dash-activity">
+                            <div class="slimscroll activity_scroll">
+
+                                <div class="team-list" v-for="user in userList">
+                                    <div class="team-view">
+                                        <div class="team-img">
+                                            <img src="assets/img/profiles/avatar-03.jpg" alt="avatar" />
+                                        </div>
+                                        <div class="team-content">
+                                            <label>{{ user.fullName }}</label>
+                                            <span>{{ user.role }}</span>
+                                        </div>
                                     </div>
-                                    <div class="team-content">
-                                        <label>Maria Cotton</label>
-                                        <span>PHP</span>
+                                    <div class="team-action">
+                                        <ul>
+                                            <li><a><i data-feather="trash-2"></i></a></li>
+                                            <li><a><i data-feather="edit-2"></i></a></li>
+                                        </ul>
                                     </div>
-                                </div>
-                                <div class="team-action">
-                                    <ul>
-                                        <li><a><i data-feather="trash-2"></i></a></li>
-                                        <li><a><i data-feather="edit-2"></i></a></li>
-                                    </ul>
                                 </div>
                             </div>
-                            <div class="team-list">
+                            <!-- <div class="team-list">
                                 <div class="team-view">
                                     <div class="team-img">
                                         <img src="assets/img/profiles/avatar-04.jpg" alt="avatar" />
@@ -206,7 +209,7 @@
                                         <li><a><i data-feather="edit-2"></i></a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -214,21 +217,21 @@
                     <div class="card card-list flex-fill">
                         <div class="card-header">
                             <div class="">
-                                <h4 class="card-title">Recent Activities</h4>
+                                <h4 class="card-title">Danh sách nghỉ phép</h4>
                             </div>
                         </div>
                         <div class="card-body dash-activity">
                             <div class="slimscroll activity_scroll">
-                                <div class="activity-set">
+                                <div class="activity-set" v-for="leave in leaveList">
                                     <div class="activity-img">
                                         <img src="assets/img/profiles/avatar-02.jpg" alt="avatar">
                                     </div>
                                     <div class="activity-content">
-                                        <label>Lorem ipsum dolor sit amet,</label>
-                                        <span>2 hours ago</span>
+                                        <label>{{ leave.eplName }}</label>
+                                        <span>{{ leave.duration }} ({{ leave.dateApply }})</span>
                                     </div>
                                 </div>
-                                <div class="activity-set">
+                                <!-- <div class="activity-set">
                                     <div class="activity-img">
                                         <img src="assets/img/profiles/avatar-05.jpg" alt="avatar">
                                     </div>
@@ -290,7 +293,7 @@
                                         <label>Lorem ipsum dolor sit amet,</label>
                                         <span>4 hours ago</span>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="leave-viewall activit">
                                 <a>View all <img src="assets/img/right-arrow.png" class="ml-2" alt="arrow"></a>
@@ -356,6 +359,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import HeaderVue from '../../components/Header.vue'
 import SidebarVue from '../../components/Sidebar.vue'
 
@@ -365,11 +369,43 @@ export default {
         HeaderVue,
         SidebarVue
     },
+    data() {
+        return {
+            userList: null,
+            leaveList: null
+        }
+    },
+    methods: {
+        async getUserList() {
+            await axios.get(`user/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.userList = res.data.data
+                    }
+
+                }).catch(err => console.log(err))
+        },
+
+        async getListLeave(){
+            await axios.get(`leave/get-list`)
+            .then(res => {
+                if(res != null){
+                    this.leaveList = res.data.data
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    },
     mounted() {
         afterRender();
     },
     updated() {
         afterRender();
+    },
+    created() {
+        this.getUserList();
+        this.getListLeave();
     }
 }
 </script>

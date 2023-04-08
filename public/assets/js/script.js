@@ -66,10 +66,12 @@ function formatState(state) {
       '<span><img style="width: 50px;" src="'+linkIcon+'" /> ' + state.text + '</span>'
     );
     return $state;
-  } catch (error) {
-    console.log(error)
+  } catch(err) {
+    "Input is " + err;
   }
 };
+
+// $('.selectRole').selectpicker();
 
 $(document).ready(function () {
   $('.selectBank').select2({

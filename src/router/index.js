@@ -4,6 +4,8 @@ import DashboardVue from "../views/home/Dashboard.vue"
 import UserIndex from "../views/user/UserIndex.vue"
 import UserList from "../views/user/UserList.vue"
 import GridUser from "../views/user/GridUser.vue"
+import UserProfile from "../views/user/UserProfile.vue"
+import AssignmentIndex from "../views/assignment/AssignmentIndex.vue"
 
 const routes = [
   {
@@ -43,6 +45,16 @@ const routes = [
     path: "/user-grid",
     name: "user-grid",
     component: GridUser,
+  },
+  {
+    path: "/profile",
+    name: "user-profile",
+    component: UserProfile,
+  },
+  {
+    path: "/assignment",
+    name: "assignment",
+    component: AssignmentIndex,
   },
   {
     path: "/about",

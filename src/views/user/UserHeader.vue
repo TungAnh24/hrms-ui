@@ -14,7 +14,7 @@
 		<div class="head-link-set">
 			<ul>
 				<li><a class="active" href="#">All</a></li>
-				<li><a href="employee-team.html">Teams</a></li>
+				<li><a href="/assignment">Công việc</a></li>
 				<li><a href="employee-office.html">Offices</a></li>
 			</ul>
 			<a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm mới</a>
@@ -25,7 +25,7 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form @submit.prevent="createUser()">
+				<form>
 					<div class="modal-header">
 						<h4 class="modal-title">Add Employee</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -43,23 +43,28 @@
 											<div class="form-group">
 												<input type="text" placeholder="Tên tài khoản" v-model="user.userName">
 											</div>
-										</div>
-										<div class="col-xl-4 col-sm-12 col-12 ">
-											<div class="form-group">
-												<input type="text" placeholder="Mật khẩu" v-model="user.password">
+									</div>
+									<div class="col-xl-4 col-sm-12 col-12 ">
+										<div class="form-group">
+											<input type="text" placeholder="Mật khẩu" v-model="user.password">
 											</div>
 										</div>
 										<div class="col-xl-3 col-sm-12 col-12 ">
 											<div class="form-group">
-												<select v-model="user.rolesId" :options="roleList" class="selectRole" name="rolesId" multiple="multiple" style="min-height: 70px;">
+												<select v-model="user.rolesId" class="select selectRole" id="rolesId" name="rolesId" multiple style="min-height: 70px;">
+														<option v-for="role in roleList" :value="role.id">
+															<label>{{ role.roleName }}</label>
+														</option>
+													</select>
+												<!-- <select v-model="user.rolesId" class="selectpicker" multiple>
 													<option v-for="role in roleList" :value="role.id">
-														<label>{{ role.roleName }}</label>
-													</option>
-												</select>
+															<label>{{ role.roleName }}</label>
+														</option>
+												</select> -->
 											</div>
 										</div>
 									</div>
-									<div class="row">
+									<div class="row">	
 										<div class="col-xl-5 col-sm-12 col-12 ">
 											<div class="form-group">
 												<input type="text" placeholder="Họ tên" v-model="user.fullName">
@@ -92,11 +97,11 @@
 										<div class="col-xl-7 col-sm-12 col-12 ">
 											<div class="form-group">
 												<select id="bankId" name="bankId" v-model="user.bankShortName"
-													class=" selectBank" style="width: 100%;">
+													class="selectBank" style="width: 100%;">
 													<option disabled>Ngân hàng</option>
-													<option :linkIcon=bank.logo v-for="bank in bankList"
+													<option class="bankInfo" :linkIcon=bank.logo :bankFullName=bank.name v-for="bank in bankList"
 														:key="bank.shortName" :value="bank.shortName">
-														{{ bank.name }} ( {{ bank.shortName }} )
+														{{ bank.name }}
 													</option>
 												</select>
 											</div>
@@ -104,6 +109,7 @@
 										<p>Bank account: {{ user.bankAccount }}</p>
 										<p>RoleIds: {{ user.rolesId }}</p>
 										<p>Bank shortName: {{ user.bankShortName }}</p>
+										<p>Bank fullName: {{ user.bankFullName }}</p>
 									</div>
 								</div>
 							</div>
@@ -111,7 +117,7 @@
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Thoát">
-						<input type="submit" class="btn btn-success" value="Thêm">
+						<input type="button" class="btn btn-success" data-dismiss="modal" @click="createUser()" value="Thêm">
 					</div>
 				</form>
 			</div>
@@ -133,12 +139,13 @@ export default {
 				phone: ``,
 				address: ``,
 				bankAccount: ``,
-				bankFullName: `Techcombank`,
-				bankShortName: `TCB`,
-				rolesId: null
+				bankFullName: ``,
+				bankShortName: ``,
+				rolesId: []
 			},
 			roleList: null,
-			bankList: null
+			bankList: null,
+			userList: null,
 		}
 	},
 	methods: {
@@ -146,9 +153,9 @@ export default {
 			await axios.post(`user/create-user`, this.user)
 				.then((res) => {
 					if (res) {
-						debugger;
-						this.$router.push("/user");
+						this.$router.push("/user-list");
 						console.log(res.data);
+						// this.getUserList();
 					}
 				})
 				.catch((error) => console.log(error));
@@ -174,19 +181,52 @@ export default {
 						console.log(this.bankList)
 					}
 				}).catch(err => console.log(err));
-		},
+		},   
+		
+		async getUserList() {
+            await axios.get(`/user/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.userList = res.data.data
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+        },
 
-		onChange: function (event) {
-			debugger;
-			var test = $("#bankId option:selected").val();
-			// this.user.bankShortName = event.target.value
-			this.user.bankShortName = test;
+		onChange(event){ 
+			alert(123);
+			// event = $("#rolesId").val();
+			// console.log(event)
+			// // this.user.bankShortName = event.target.value
+			// this.user.rolesId = event;
 		}
 	},
 	created() {
 		this.getListRole();
-		this.getListBank();
-	}
-}
+		this.getListBank(); 
+	}, 
+	mounted(){  
+		var $this = this;
+		if ($("#rolesId").length > 0){
+			$('#rolesId').change(function(){
+				var roleId = $('#rolesId').val();
+				$this.user.rolesId = roleId;
+			});
+		}
+		
+		if ($("#bankId").length > 0){
+			$('#bankId').change(function(){
+				var bankShortName = $('#bankId').val();
+				$this.user.bankShortName = bankShortName;
+				// var bankFullname = $('.bankInfo').attr('bankFullName');
+				var bankFullname = $("#bankId option:selected").text();
+				$this.user.bankFullName = bankFullname;
+			}) 
+		}
+	},
+} 
+
+
 
 </script>

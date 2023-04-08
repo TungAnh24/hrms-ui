@@ -127,9 +127,6 @@ export default {
     created() {
         this.getUserList()
     },
-    mounted() {
-        afterRender();
-    },
     updated() {
         afterRender();
     }

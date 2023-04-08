@@ -67,112 +67,40 @@
                                                         <label for="selectAll"></label>
                                                     </span>
                                                 </th>
-                                                <th>Name</th>
+                                                <th>Tài khoản</th>
+                                                <th>Họ tên</th>
+                                                <th>Phòng ban</th>
+                                                <th>Vị trí</th>
                                                 <th>Email</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
-                                                <th>Actions</th>
+                                                <th>Điện thoại</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Trạng thái</th>
+                                                <th>Thao tác</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody v-for="(user, index) in userList" :key="index">
+                                            <tr style="font-size: 15px">
                                                 <td>
                                                     <span class="custom-checkbox">
                                                         <input type="checkbox" id="checkbox1" name="options[]" value="1">
                                                         <label for="checkbox1"></label>
                                                     </span>
                                                 </td>
-                                                <td>Thomas Hardy</td>
-                                                <td>thomashardy@mail.com</td>
-                                                <td>89 Chiaroscuro Rd, Portland, USA</td>
-                                                <td>(171) 555-2222</td>
+                                                <td>{{ user.username }}</td>
+                                                <td>{{ user.fullName }}</td>
+                                                <td>{{ user.departmentName }}</td>
+                                                <td>{{ user.role }}</td>
+                                                <td>{{ user.email }}</td>
+                                                <td>{{ user.phone }}</td>
+                                                <td>{{ user.address }}</td>
+                                                <td>{{ user.isActivated }}</td>
                                                 <td>
                                                     <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
                                                             class="material-icons" data-toggle="tooltip"
                                                             title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="custom-checkbox">
-                                                        <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                                                        <label for="checkbox2"></label>
-                                                    </span>
-                                                </td>
-                                                <td>Dominique Perrier</td>
-                                                <td>dominiqueperrier@mail.com</td>
-                                                <td>Obere Str. 57, Berlin, Germany</td>
-                                                <td>(313) 555-5735</td>
-                                                <td>
-                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="custom-checkbox">
-                                                        <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                                                        <label for="checkbox3"></label>
-                                                    </span>
-                                                </td>
-                                                <td>Maria Anders</td>
-                                                <td>mariaanders@mail.com</td>
-                                                <td>25, rue Lauriston, Paris, France</td>
-                                                <td>(503) 555-9931</td>
-                                                <td>
-                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="custom-checkbox">
-                                                        <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                                                        <label for="checkbox4"></label>
-                                                    </span>
-                                                </td>
-                                                <td>Fran Wilson</td>
-                                                <td>franwilson@mail.com</td>
-                                                <td>C/ Araquil, 67, Madrid, Spain</td>
-                                                <td>(204) 619-5731</td>
-                                                <td>
-                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="custom-checkbox">
-                                                        <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                                                        <label for="checkbox5"></label>
-                                                    </span>
-                                                </td>
-                                                <td>Martin Blank</td>
-                                                <td>martinblank@mail.com</td>
-                                                <td>Via Monte Bianco 34, Turin, Italy</td>
-                                                <td>(480) 631-2097</td>
-                                                <td>
-                                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Edit">&#xE254;</i></a>
-                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i
-                                                            class="material-icons" data-toggle="tooltip"
-                                                            title="Delete">&#xE872;</i></a>
+                                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
+                                                        style="border: none;" v-on:click="deleteUser(user.id)"><i class="material-icons"
+                                                            data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -198,7 +126,7 @@
         </div>
     </div>
     <!-- Edit Modal HTML -->
-    <div id="editEmployeeModal" class="modal fade">
+    <!-- <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
@@ -208,76 +136,76 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-xl-12 col-sm-12 col-12 ">
-						<div class="card ">
-							<div class="card-header">
-								<h2 class="card-titles">Employment Details<span>Let everyone know the essentials so
-										they're fully prepared.</span></h2>
-							</div>
-							<div class="card-body">
-								<div class="row">
-                                    <div class="col-xl-5 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Tên tài khoản">
-										</div>
-									</div>
-									<div class="col-xl-4 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Mật khẩu">
-										</div>
-									</div>
-                                    <div class="col-xl-3 col-sm-12 col-12 ">
-										<div class="form-group">
-											<select class="select">
-												<option value="Select leave">Chọn vị trí </option>
-												<option value="leave">HR</option>
-												<option value="leave">President</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xl-5 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Họ tên">
-										</div>
-									</div>
-									<div class="col-xl-7 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Địa chỉ">
-										</div>
-									</div>
-								</div>
-                                <div class="row">
-									<div class="col-xl-5 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Số điện thoại">
-										</div>
-									</div>
-									<div class="col-xl-7 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Email">
-										</div>
-									</div>
-								</div>
-                                <div class="row">
-									<div class="col-xl-5 col-sm-12 col-12 ">
-										<div class="form-group">
-											<input type="text" placeholder="Số tài khoản">
-										</div>
-									</div>
-                                    <div class="col-xl-7 col-sm-12 col-12 ">
-										<div class="form-group">
-											<select class="select">
-												<option value="Select leave">Ngân hàng </option>
-												<option value="leave">Techcombank</option>
-												<option value="leave">Vietcombank</option>
-											</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                            <div class="card ">
+                                <div class="card-header">
+                                    <h2 class="card-titles">Employment Details<span>Let everyone know the essentials so
+                                            they're fully prepared.</span></h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-5 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Tên tài khoản">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Mật khẩu">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option value="Select leave">Chọn vị trí </option>
+                                                    <option value="leave">HR</option>
+                                                    <option value="leave">President</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-5 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Họ tên">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Địa chỉ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-5 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Số điện thoại">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-5 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Số tài khoản">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-sm-12 col-12 ">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option value="Select leave">Ngân hàng </option>
+                                                    <option value="leave">Techcombank</option>
+                                                    <option value="leave">Vietcombank</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -286,9 +214,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
+    <!-- <div id="deleteEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
@@ -307,11 +235,12 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
 
 
 <script>
+import axios from 'axios';
 
 import Header from '../../components/Header.vue'
 import Sidebar from '../../components/Sidebar.vue'
@@ -324,12 +253,48 @@ export default {
         Sidebar,
         UserHeader
     },
+    data() {
+        return {
+            userList: null
+        }
+    },
+    methods: {
+        async getUserList() {
+            await axios.get(`/user/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.userList = res.data.data
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+        },
+
+        async deleteUser(userId) {
+            if(confirm("Bạn có muốn xóa người này không?")){
+                await axios.post(`/user/delete/` + userId)
+                    .then(res => {
+                        if (res != null) {
+                            console.log(res.data);
+                            this.getUserList();
+                        }
+                    }).catch(err => console.log(err))
+            }
+        },
+        
+        submitDelete: () => {
+                confirm('Bạn có muốn xóa người này không?')
+            }
+    },
+    created() {
+        this.getUserList();
+    },
     mounted() {
         afterRender();
     },
-    updated() {
-        afterRender();
-    }
+    // updated() {
+    //     afterRender();
+    // }
 }
 </script>
 
@@ -607,4 +572,5 @@ table.table .avatar {
 
 .modal form label {
     font-weight: normal;
-}</style>
+}
+</style>

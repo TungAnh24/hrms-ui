@@ -34,7 +34,7 @@
                                     Nhân viên</span></a>
                         </li>
                         <li>
-                            <a href="company.html"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
+                            <a href="/user"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
                                     Công ty</span></a>
                         </li>
                         <li>
