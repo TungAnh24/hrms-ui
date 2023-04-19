@@ -29,7 +29,7 @@
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                         <div class="col-xl-10 col-sm-8 col-12 ">
-                            <label class="employee_count">7 Người</label>
+                            <label class="employee_count">{{ totalItems }} Người</label>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
                             <a href="/user-grid" class="btn-view "><i data-feather="grid"></i> </a>
@@ -110,7 +110,8 @@ export default {
     },
     data() {
         return {
-            userList: null
+            userList: null,
+            totalItems: null
         }
     },
     methods: {
@@ -119,6 +120,7 @@ export default {
                 .then(res => {
                     if (res != null) {
                         this.userList = res.data.data
+                        this.totalItems = res.data.totalItems
                     }
                     console.log(this.userList)
                 }).catch(err => console.log(err));

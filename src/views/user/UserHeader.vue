@@ -15,7 +15,7 @@
 			<ul>
 				<li><a class="active" href="#">All</a></li>
 				<li><a href="/assignment">Công việc</a></li>
-				<li><a href="employee-office.html">Offices</a></li>
+				<li><a href="/department">Phòng ban</a></li>
 			</ul>
 			<a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm mới</a>
 		</div>
@@ -146,6 +146,7 @@ export default {
 			roleList: null,
 			bankList: null,
 			userList: null,
+			totalItems: null
 		}
 	},
 	methods: {
@@ -166,7 +167,7 @@ export default {
 				.then(res => {
 					if (res != null) {
 						this.roleList = res.data.data;
-						console.log(this.roleList)
+						// console.log(this.roleList)
 					}
 				}).catch((error) => {
 					console.log(error)
@@ -178,7 +179,7 @@ export default {
 				.then((res) => {
 					if (res != null) {
 						this.bankList = res.data.data;
-						console.log(this.bankList)
+						// console.log(this.bankList)
 					}
 				}).catch(err => console.log(err));
 		},   
@@ -187,7 +188,8 @@ export default {
             await axios.get(`/user/get-all`)
                 .then(res => {
                     if (res != null) {
-                        this.userList = res.data.data
+                        this.userList = res.data.data;
+						this.totalItems = res.data.totalItems;
                     }
                 }).catch(err => {
                     console.log(err);
@@ -204,7 +206,7 @@ export default {
 	},
 	created() {
 		this.getListRole();
-		this.getListBank(); 
+		this.getListBank();
 	}, 
 	mounted(){  
 		var $this = this;

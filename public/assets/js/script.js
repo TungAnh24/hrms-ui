@@ -63,10 +63,10 @@ function formatState(state) {
     var baseUrl = "/user/pages/images/flags";
     var $state = $(
       // '<span><img src="' + linkIcon + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-      '<span><img style="width: 50px;" src="'+linkIcon+'" /> ' + state.text + '</span>'
+      '<span><img style="width: 50px;" src="' + linkIcon + '" /> ' + state.text + '</span>'
     );
     return $state;
-  } catch(err) {
+  } catch (err) {
     "Input is " + err;
   }
 };
@@ -79,3 +79,45 @@ $(document).ready(function () {
     templateResult: formatState
   });
 })
+
+// $(document).ready(function(){
+//   var asmItem = $('.asmItem').length;
+//   // var attrItemClickAsmInfo = $('#asmInfo').attr( "itemClickAsmInfo" );
+//   for (let index = 0; index < asmItem; index++) {
+//     // console.log('item: ' + [index]);
+//     // debugger;
+//     // var attrItemClickAsmInfo = $('#asmInfo').attr( [index] );
+//     // console.log('click: ' +attrItemClickAsmInfo);
+//     $('#asmInfo').click(function () {
+//       // var styleDpmInfo = $(selector)
+//     if ($('#'+index).css("display") == 'none') {
+//       $('#'+index).slideDown();
+//     } else {
+//       $('#'+index).slideUp();
+//     }
+//     })
+//   }
+// })
+
+// $(document).ready(function () {
+
+//   $('.departmentInfo').click(function () {
+//     // var styleDpmInfo = $(selector)
+//     if ($('#tablee').css("display") == 'none') {
+//       $('#tablee').slideDown();
+//     } else {
+//       $('#tablee').slideUp();
+//     }
+//   })
+// })
+
+// $(document).ready(function(){
+//   $("#infoAsm").click(function(){
+//     if($(this).parents(".card-header").parent(".card").find(".table-responsive").css("display") == 'none'){
+//       debugger;
+//       $(this).parents(".card-header").parent(".card").find(".table-responsive").slideDown();
+//     } else {
+//       $(this).parents(".card-header").parent(".card").find(".table-responsive").slideUp();
+//     }
+//   })
+// })

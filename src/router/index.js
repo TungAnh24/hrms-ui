@@ -6,7 +6,8 @@ import UserList from "../views/user/UserList.vue"
 import GridUser from "../views/user/GridUser.vue"
 import UserProfile from "../views/user/UserProfile.vue"
 import AssignmentIndex from "../views/assignment/AssignmentIndex.vue"
-
+import AssignmentEdit from "../views/assignment/AssignmentEdit.vue"
+import DepartmentIndex from "../views/department/DepartmentIndex.vue"
 const routes = [
   {
     path: "/login",
@@ -55,6 +56,16 @@ const routes = [
     path: "/assignment",
     name: "assignment",
     component: AssignmentIndex,
+  },
+  {
+    path: "/assignment/edit/:id",
+    name: "assignmentEdit",
+    component: AssignmentEdit,
+  },
+  {
+    path: "/department",
+    name: "department",
+    component: DepartmentIndex,
   },
   {
     path: "/about",

@@ -135,8 +135,8 @@
             <div class="row">
                 <div class="col-xl-6 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
-                        <div class="card-header ">
-                            <h4 class="card-title">Danh sách nhân viên</h4>
+                        <div class="card-header">
+                            <h4 class="card-title-dash">Danh sách nhân viên</h4>
                         </div>
                         <div class="card-body dash-activity">
                             <div class="slimscroll activity_scroll">
@@ -216,9 +216,18 @@
                 <div class="col-xl-3 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header">
-                            <div class="">
-                                <h4 class="card-title">Danh sách nghỉ phép</h4>
-                            </div>
+                            <!-- <div class=""> -->
+                                <h4 class="card-title-dash">Danh sách nghỉ phép</h4>
+                                <div class="dropdown">
+                                    <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="roomsBtn">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                    </div>
+                                </div>
+                            <!-- </div> -->
                         </div>
                         <div class="card-body dash-activity">
                             <div class="slimscroll activity_scroll">
@@ -304,7 +313,7 @@
                 <div class="col-xl-3 col-sm-12 col-12 d-flex">
                     <div class="card card-list flex-fill">
                         <div class="card-header ">
-                            <h4 class="card-title-dash">Your Upcoming Leave</h4>
+                            <h4 class="card-title-dash">Danh sách công việc</h4>
                             <div class="dropdown">
                                 <button class="btn btn-action " type="button" id="roomsBtn" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
@@ -315,14 +324,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="leave-set">
+                        <div class="card-body dash-activity">
+                            <div class=" slimscroll activity_scroll">
+                            <div class="leave-set" v-for="assignment in assingmentList">
                                 <span class="leave-inactive">
                                     <i class="fas fa-briefcase"></i>
                                 </span>
-                                <label>Mon, 16 Dec 2021</label>
+                                <label>{{ assignment.taskName }}</label>
                             </div>
-                            <div class="leave-set">
+                            </div>
+                            <!-- <div class="leave-set">
                                 <span class="leave-active">
                                     <i class="fas fa-briefcase"></i>
                                 </span>
@@ -345,7 +356,7 @@
                                     <i class="fas fa-briefcase"></i>
                                 </span>
                                 <label>Tue, 31 Dec 2021</label>
-                            </div>
+                            </div> -->
                             <div class="leave-viewall">
                                 <a href="leave.html">View all <img src="assets/img/right-arrow.png" class="ml-2"
                                         alt="arrow" /></a>
@@ -372,7 +383,8 @@ export default {
     data() {
         return {
             userList: null,
-            leaveList: null
+            leaveList: null,
+            assingmentList: null
         }
     },
     methods: {
@@ -386,15 +398,26 @@ export default {
                 }).catch(err => console.log(err))
         },
 
-        async getListLeave(){
+        async getListLeave() {
             await axios.get(`leave/get-list`)
-            .then(res => {
-                if(res != null){
-                    this.leaveList = res.data.data
-                }
-            }).catch(err => {
-                console.log(err)
-            })
+                .then(res => {
+                    if (res != null) {
+                        this.leaveList = res.data.data
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+        },
+
+        async getListAssignment() {
+            await axios.get(`assignment/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.assingmentList = res.data.data;
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
         }
     },
     mounted() {
@@ -406,6 +429,7 @@ export default {
     created() {
         this.getUserList();
         this.getListLeave();
+        this.getListAssignment();
     }
 }
 </script>

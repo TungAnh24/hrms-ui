@@ -4124,6 +4124,22 @@ span.leave-inactive {
     align-items: center;
     background: url(../img/right-icon.png) no-repeat 96% 50%;
 }
+/* thêm mới */
+.leave-set {
+    border-bottom: 1px solid #E4E7EB;
+    padding:8px;
+    display: flex;
+	display: -webkit-box; 
+	display: -moz-box; 
+	display: -ms-flexbox;  
+	display: -webkit-flex;
+    align-items: center;
+    background: url(../img/right-icon.png) no-repeat 96% 50%;
+}
+.leave-set:hover {
+    background: #f5f5f5 url(../img/right-icon.png) no-repeat 96% 50%;
+}
+/* ---- */
 .leave-viewall.activit {
     padding: 7px 10px;
 }
@@ -4156,9 +4172,9 @@ span.leave-inactive {
     font-weight: 500;
 	
 }
-.leave-set:hover {
+/* .leave-set:hover {
     background: #f5f5f5;
-}
+} */
 .leave-set span {
 	margin-right: 20px;
     padding: 2px 6px;
