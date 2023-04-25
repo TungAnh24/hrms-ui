@@ -30,11 +30,11 @@
                                 <span>Trang chủ</span></a>
                         </li>
                         <li>
-                            <a href="/user"><img src="assets/img/employee.svg" alt="sidebar_img"><span>
+                            <a href="/nhan-vien"><img src="assets/img/employee.svg" alt="sidebar_img"><span>
                                     Nhân viên</span></a>
                         </li>
                         <li>
-                            <a href="/user"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
+                            <a href="/nhan-vien"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
                                     Công ty</span></a>
                         </li>
                         <li>
@@ -42,8 +42,12 @@
                                 <span>Lịch</span></a>
                         </li>
                         <li>
-                            <a href="leave.html"><img src="assets/img/leave.svg" alt="sidebar_img">
-                                <span>Nghỉ phép</span></a>
+                            <a href="/nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
+                                <span>Nghỉ phép</span></a>
+                        </li>
+                        <li>
+                            <a href="/nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
+                                <span>Đăng ký nghỉ phép</span></a>
                         </li>
                         <li>
                             <a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>

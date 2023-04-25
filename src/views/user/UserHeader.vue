@@ -14,8 +14,8 @@
 		<div class="head-link-set">
 			<ul>
 				<li><a class="active" href="#">All</a></li>
-				<li><a href="/assignment">Công việc</a></li>
-				<li><a href="/department">Phòng ban</a></li>
+				<li><a href="/cong-viec">Công việc</a></li>
+				<li><a href="/van-phong">Phòng ban</a></li>
 			</ul>
 			<a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm mới</a>
 		</div>
@@ -27,15 +27,14 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Add Employee</h4>
+						<h4 class="modal-title">Thêm nhân viên mới</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
 						<div class="col-xl-12 col-sm-12 col-12 ">
 							<div class="card ">
 								<div class="card-header">
-									<h2 class="card-titles">Employment Details<span>Let everyone know the essentials so
-											they're fully prepared.</span></h2>
+									<h2 class="card-titles">Thông tin nhân viên<span>Nhập đầy đủ thông tin của nhân viên.</span></h2>
 								</div>
 								<div class="card-body">
 									<div class="row">
@@ -154,9 +153,9 @@ export default {
 			await axios.post(`user/create-user`, this.user)
 				.then((res) => {
 					if (res) {
-						this.$router.push("/user-list");
+						this.$router.push("/nhan-vien/danh-sach");
 						console.log(res.data);
-						// this.getUserList();
+						this.getUserList();
 					}
 				})
 				.catch((error) => console.log(error));

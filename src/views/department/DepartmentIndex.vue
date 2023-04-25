@@ -8,28 +8,28 @@
                     <div class="breadcrumb-path ">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-2"
-                                        alt="breadcrumb" />Home</a>
+                                        alt="breadcrumb" />Trang chủ</a>
                             </li>
-                            <li class="breadcrumb-item active"> Employees</li>
+                            <li class="breadcrumb-item active"> Văn phòng</li>
                         </ul>
-                        <h3>Employees</h3>
+                        <h3>Danh sách văn phòng</h3>
                     </div>
                 </div>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="head-link-set">
                         <ul>
                             <li><a class="active" href="#">All</a></li>
-                            <li><a href="/assignment">Công việc</a></li>
-                            <li><a href="/department">Phòng ban</a></li>
+                            <li><a href="/cong-viec">Công việc</a></li>
+                            <li><a href="/van-phong">Phòng ban</a></li>
                         </ul>
-                        <a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm
-                            mới</a>
+                        <!-- <a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm
+                            mới</a> -->
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-xl-10 col-sm-8 col-12 ">
-                    <label class="employee_count">1 Office</label>
+                    <label class="employee_count">{{ departmentCount }}</label>
                 </div>
                 <div class="col-xl-1 col-sm-2 col-12 ">
                     <a href="#" class="btn-view active "><i data-feather="grid"></i> </a>
@@ -39,21 +39,30 @@
                 </div>
             </div>
             <div class="row">
+                <a class="btn-add ml-3 mt-3" id="addNewDepartment"><i data-feather="plus"></i> Thêm mới phòng ban</a>
                 <div class="col-xl-12 col-sm-12 col-12 ">
                     <div class="card  card-lists">
-                        <div class="card-header  ">
-                            <h2 class="card-titles">Create New Office</h2>
-                        </div>
-                        <div class="card-body">
+                        <!-- <div class="card-header  ">
+                            <h2 class="card-titles">Thêm phòng ban mới</h2>
+                        </div> -->
+                        <div class="card-body" id="formAddNewDepartment" style="display: none;">
                             <div class="row">
-                                <div class="col-xl-8 col-sm-12 col-12 ">
-                                    <input type="text" placeholder="Office Name" class="input-form">
+                                <!-- <div class="row"> -->
+                                <div class="col-xl-5 col-sm-12 col-12 " style="font-size: 15px;">
+                                    <input type="text" placeholder="Tên phòng..." class="input-form"
+                                        v-model="department.departmentName">
+                                </div>
+                                <div class="col-xl-3 col-sm-12 col-12 " style="font-size: 15px;">
+                                    <input type="text" placeholder="Mã phòng..." class="input-form"
+                                        v-model="department.departmentCode">
+                                </div>
+                                <!-- </div> -->
+
+                                <div class="col-xl-2 col-sm-6 col-6 ">
+                                    <a href="#" class="btn-create " @click="createDepartment()">Tạo phòng </a>
                                 </div>
                                 <div class="col-xl-2 col-sm-6 col-6 ">
-                                    <a href="#" class="btn-create ">Create Office </a>
-                                </div>
-                                <div class="col-xl-2 col-sm-6 col-6 ">
-                                    <a href="#" class="btn-cancel ">Cancel </a>
+                                    <a href="#" class="btn-cancel ">Hủy </a>
                                 </div>
                             </div>
                         </div>
@@ -61,12 +70,23 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-12 col-sm-12 col-12 ">
+                <div class="col-xl-12 col-sm-12 col-12 " v-for="objDepartment in lstDepartment">
                     <div class="card">
                         <div class="card-header create-formhead">
-                            <h2 class="card-titles">Focus Technologies<span>Head Office</span></h2>
-                            <a data-toggle="modal" data-target="#edit" class="edit-link"><i data-feather="edit"></i>
-                            </a>
+                            <h2 class="card-titles">{{ objDepartment.departmentName }}<span>{{ objDepartment.departmentCode
+                            }}</span></h2>
+                            <ul>
+                                <li>
+                                    <a data-toggle="modal" data-target="#edit" title="Sửa phòng ban" class="edit-link"
+                                        @click="getDepartmentId(objDepartment.id)"><i data-feather="edit"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" data-target="#delete" title="Xóa phòng ban" class="delete-link"
+                                        @click="getDepartmentId(objDepartment.id)"><i data-feather="trash-2"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="card-body">
                             <div class="member-formcontent member-row">
@@ -100,11 +120,12 @@
                                     </div>
                                 </div>
                                 <div class="member_link">
-                                    <a data-toggle="collapse" href="#table" role="button" aria-expanded="false"
-                                        aria-controls="table"><i data-feather="chevron-down"></i></a>
+                                    <a data-toggle="collapse" href="#table" title="Danh sách thành viên" role="button"
+                                        aria-expanded="false" aria-controls="table" @click="toggleTable($event)"><i
+                                            data-feather="chevron-down"></i></a>
                                 </div>
                             </div>
-                            <div class="table-responsive collapse show" id="table">
+                            <div class="table-responsive collapse" id="table" style="display: none;">
                                 <table class="table  custom-table  no-footer">
                                     <thead>
                                         <tr>
@@ -302,13 +323,31 @@
         </div>
     </div>
 
+    <div class="customize_popup">
+        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header text-centers border-0">
+                        <h5 class="modal-title text-center" id="staticBackdropLabels1">Bạn có chắc chắn xóa văn phòng này?
+                        </h5>
+                    </div>
+                    <div class="modal-footer text-centers">
+                        <button type="button" class="btn btn-primary" @click="deleteDepartment(dpmId)"
+                            data-dismiss="modal">Xóa</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="customize_popup">
         <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Office</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Chỉnh sửa phòng ban</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -316,14 +355,21 @@
                     <div class="modal-body">
                         <div class=" col-md-12 p-0">
                             <div class=" form-popup">
-                                <label>Office Name</label>
-                                <input type="text">
+                                <label>Tên phòng</label>
+                                <input type="text" v-model="department.departmentName">
+                            </div>
+                        </div>
+                        <div class=" col-md-12 p-0">
+                            <div class=" form-popup">
+                                <label>Mã phòng</label>
+                                <input type="text" v-model="department.departmentCode">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-apply">Apply</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-apply" @click="updateDepartment(dpmId)"
+                            data-dismiss="modal">Sửa</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
             </div>
@@ -332,6 +378,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 import Header from '../../components/Header.vue'
 import Sidebar from '../../components/Sidebar.vue'
@@ -340,8 +387,90 @@ export default {
     components: {
         Header, Sidebar
     },
-    mounted() {
+    data() {
+        return {
+            department: {
+                id: 0,
+                departmentName: ``,
+                departmentCode: ``,
+                userId: ``
+            },
+            dpmId: null,
+            departmentCount: null,
+            lstDepartment: null
+        }
+    },
+    methods: {
+        async getListDepartment() {
+            await axios.get(`department/get-all`)
+                .then(res => {
+                    if (res != null) {
+                        this.lstDepartment = res.data.data;
+                        this.departmentCount = res.data.totalItems + ' Phòng ban';
+                    }
+                }).catch(err => console.log(err));
+        },
+
+        async createDepartment() {
+            await axios.post(`department/add-new`, this.department)
+                .then(res => {
+                    if (res != null) {
+                        this.$router.push(`/van-phong`);
+                        this.getListDepartment();
+                        this.department.departmentName = ``;
+                        this.department.departmentCode = ``;
+                    }
+                }).catch(err => console.log(err));
+        },
+
+        async getDepartmentId(dpmId) {
+            await axios.get(`department/department-detail/` + dpmId)
+                .then(res => {
+                    if (res != null) {
+                        this.department = res.data.data;
+                        this.dpmId = res.data.data.id;
+                        console.log(`departmentId đây rồi: ` + this.dpmId);
+                    }
+                }).catch(err => console.log(err));
+        },
+
+        async updateDepartment(dpmId) {
+            await axios.post(`department/update/` + dpmId, this.department)
+                .then(res => {
+                    // if(res != null) {
+                    this.department = res.data.data;
+                    // this.department.departmentName = res.data.data.departmentName;
+                    // this.department.departmentCode = res.data.data.departmentCode;
+                    // console.log(`AAAAA: ` + this.department.departmentName);
+                    // this.$router.push(`/department`)
+                    // }
+                    this.getListDepartment();
+                }).catch(err => {
+                    console.log(err);
+                })
+        },
+
+        async deleteDepartment(dpmId){
+            await axios.post(`department/delete/` + dpmId)
+            .then(res => {
+              if(res != null) {
+                this.getListDepartment();
+              }  
+            })
+        },
+
+        toggleTable(event) {
+            $(event.target).parents(".card-body").parent(".card").find(".table-responsive").slideToggle();
+        }
+    },
+    created() {
+        this.getListDepartment();
+    },
+    updated() {
         afterRender();
-    }
+    },
+    // mounted() {
+    //     afterRender();
+    // }
 }
 </script>

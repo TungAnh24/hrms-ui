@@ -35,10 +35,12 @@
                             <a href="/user-grid" class="btn-view "><i data-feather="grid"></i> </a>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
-                            <a href="/user-list" class="btn-view active"><i data-feather="list"></i> </a>
+                            <a href="/nhan-vien-danh-sach" class="btn-view active"><i data-feather="list"></i> </a>
+                            <!-- <router-link to="/nhan-vien/danh-sach" class="btn-view active"><i data-feather="list"></i></router-link> | -->
                         </div>
                     </div>
                 </div>
+                <!-- <router-view></router-view> -->
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="card">
                         <div class="table-heading">

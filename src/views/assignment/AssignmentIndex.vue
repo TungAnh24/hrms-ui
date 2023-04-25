@@ -4,7 +4,29 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
-                <UserHeader></UserHeader>
+                <!-- <UserHeader></UserHeader> -->
+                <div class="col-xl-12 col-sm-12 col-12 mb-4">
+                    <div class="breadcrumb-path ">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-2"
+                                        alt="breadcrumb" />Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb-item active"> Công việc</li>
+                        </ul>
+                        <h3>Danh sách công việc</h3>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-sm-12 col-12 mb-4">
+                    <div class="head-link-set">
+                        <ul>
+                            <li><a href="/nhan-vien">All</a></li>
+                            <li><a class="active" href="/cong-viec">Công việc</a></li>
+                            <li><a href="/van-phong">Phòng ban</a></li>
+                        </ul>
+                        <a class="btn-add" data-toggle="modal" data-target="#addAsm"><i data-feather="plus"></i>
+                            Thêm mới</a>
+                    </div>
+                </div>
                 <div class="col-xl-12 col-sm-12 col-12 ">
                     <div class="card m-0">
                         <div class="card-body pb-0">
@@ -18,7 +40,7 @@
                                                 <h2 class="text-warning">Số lượng người: {{ assignment.numberOfUserAssign
                                                 }}</h2>
                                                 <ul>
-                                                    <li><a @click="getAssignmentById(assignment.asmId)"
+                                                    <li><a @click="getAssignmentById(assignment.asmId), getListUserInAsm(assignment.asmId)"
                                                             class="edit_employee" data-toggle="modal" data-target="#edit"
                                                             title="Sửa"><i data-feather="edit"></i></a></li>
                                                     <li><a @click="getAssignmentById(assignment.asmId)" class="edit_delete"
@@ -78,7 +100,7 @@
                                                 <!-- <a class="btn-addmember" data-toggle="modal" data-target="#addteam"
                                                     @click="getTaskById(assignment.asmId)">Thêm
                                                     người</a> -->
-                                                <a class="btn-addmember" data-toggle="modal" data-target="#addteam"
+                                                <a class="btn-addmember" data-toggle="modal" data-target="#addPerson"
                                                     @click="getAssignmentById(assignment.asmId)">Thêm
                                                     người</a>
                                             </div>
@@ -86,7 +108,7 @@
                                         <!-- info department -->
                                         <div class="table-responsive activity_scroll" :id=assignment.taskName
                                             style="width: 100%; display: none;">
-                                            <table class="table  custom-table  no-footer">
+                                            <table class="table custom-table  no-footer">
                                                 <thead>
                                                     <tr>
                                                         <!-- <th>STT</th> -->
@@ -121,7 +143,7 @@
                                                             <label>{{ user.email }}</label>
                                                         </td>
                                                         <td>
-                                                            <a @click="getUserInfo(user.id), getUserInfo(user.id)" data-target="#userProfile"
+                                                            <a @click="getUserInfo(user.id)" data-target="#userProfile"
                                                                 class="d-flex justify-content-center"
                                                                 style="align-items: center;" data-toggle="modal"
                                                                 title="Thông tin">
@@ -152,9 +174,63 @@
         </div>
     </div>
 
+    <!-- Tạo mới Assignment -->
+    <div class="customize_popup">
+        <div class="modal fade" id="addAsm" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabela">Tạo công việc mới</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class=" col-md-12 p-0">
+                            <div class=" form-popup m-0">
+                                <div class="row">
+                                    <label class="lable-form col-md-3 pt-2">Tên công việc: </label>
+                                    <input class="col-md-9 form-control" v-model="assignmentEdit.taskName"
+                                        placeholder="Tên công việc...">
+                                </div>
+
+                                <div class="row mt-3">
+                                    <label class="lable-form col-md-3 pt-2">Chú thích: </label>
+                                    <input class="col-md-9 form-control" v-model="assignmentEdit.description"
+                                        placeholder="Chú thích...">
+                                </div>
+
+                                <!-- <div class="row mt-3">
+                                    <label class="lable-form col-md-3 pt-2">Nhân viên: </label>
+                                    <div class="col-md-9" style="padding-left: 0px; padding-right: 0px;">
+                                        <select class="select selectRole form-control" id="eplId" style="height: 40px;"
+                                            name="eplId">
+                                            <option selected disabled>Chọn nhân viên</option>
+                                            <option style="height: 40px;" v-for="epl in listEpl" :value="epl.id">
+                                                <label>{{ epl.fullName }}</label>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div> -->
+
+                                <div> a : {{ assignmentEdit.taskName }}</div>
+                                <div> b : {{ assignmentEdit.description }}</div>
+                                <div> c : {{ task_user.assign_by_id }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            @click="createAssignment()">Thêm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="customize_popup">
-        <div class="modal fade" id="addteam" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
+        <div class="modal fade" id="addPerson" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -192,7 +268,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
                             @click="updateTaskUser(taskIdDelete)">Thêm</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
             </div>
@@ -220,6 +296,53 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Bổ sung -->
+                    <div class="table-responsive activity_scroll">
+                        <table class="table custom-table  no-footer" style="font-size: 12px;">
+                            <thead>
+                                <tr>
+                                    <!-- <th>STT</th> -->
+                                    <th>Họ tên</th>
+                                    <th>Điện thoại</th>
+                                    <th>Email</th>
+                                    <!-- <th class="d-flex justify-content-center">Chi tiết</th> -->
+                                    <!-- <th>Tài khoản</th>
+                                                        <th>Vị trí</th>
+                                                        <th>Trạng thái</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(user, indexU_Asm) in userListInAsm" :key="indexU_Asm">
+                                    <!-- <td>{{ indexU_Asm + 1}}</td> -->
+                                    <td>
+                                        <div class="table-img">
+                                            <a href="profile.html">
+                                                <img src="assets/img/profiles/avatar-13.jpg" alt="profile"
+                                                    class="img-table" />
+                                            </a>
+                                            <!-- <label>{{ user.fullName }}</label> -->
+                                            <label>{{ user.fullName }}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!-- <label class="action_label">{{ user.phone }} </label> -->
+                                        <label>{{ user.phone }}</label>
+                                    </td>
+                                    <td>
+                                        <!-- <label class="action_label2">{{ user.email }} </label> -->
+                                        <label>{{ user.email }}</label>
+                                    </td>
+                                    <!-- <td>
+                                        <a @click="getUserInfo(user.id)" data-target="#userProfile"
+                                            class="d-flex justify-content-center" style="align-items: center;"
+                                            data-toggle="modal" title="Thông tin">
+                                            <i class="fa-solid fa-circle-info" style="color: #2883fb;"></i>
+                                        </a>
+                                    </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
                             @click="updateAssingment(asmIdEdit)">sửa</button>
@@ -240,8 +363,8 @@
                     </div>
                     <div class="modal-footer text-centers">
                         <button type="button" class="btn btn-primary" @click="deleteAssignment(taskIdDelete)"
-                            data-dismiss="modal">Delete</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            data-dismiss="modal">Xóa</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
             </div>
@@ -273,12 +396,14 @@
                                 <div class="col-lg-4">
                                     <div class="card mb-4">
                                         <div class="card-body text-center">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                                                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                            <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/337653271_870564127371622_2229865266489732045_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=7bc6BpDgbc8AX-jvkgl&_nc_ht=scontent.fhan2-4.fna&oh=00_AfB7nP-ui97_sbnLKwJqo0r-LrSXjeaGcC5MNrHQg3DiRg&oe=644B95F4"
+                                                alt="avatar" class="rounded-circle img-fluid" style="height: 150px;">
                                             <h5 class="my-3">{{ userInfo.fullName }}</h5>
                                             <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
                                             <p class="text-muted mb-1">{{ userInfo.departmentName }}</p>
-                                            <p class="text-muted mb-4">{{ userInfo.address }}</p>
+                                            <!-- <p v-for="(a in userInfo.role)" class="text-muted mb-4 action_label2">{{ a }}</p> -->
+                                            <label v-for="roleName in userInfo.role" class="text-primary">{{ roleName
+                                            }}</label>
                                             <!-- <div class="d-flex justify-content-center mb-2">
                                                 <button type="button" class="btn btn-primary">Follow</button>
                                                 <button type="button" class="btn btn-outline-primary ms-1">Message</button>
@@ -352,9 +477,17 @@
                                                     <p class="mb-0">Máy bàn</p>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <p class="text-muted mb-0">{{userInfo.phone}}</p>
+                                                    <p class="text-muted mb-0">{{ userInfo.phone }}</p>
                                                 </div>
                                             </div>
+                                            <!-- <div class="row" style="font-weight: 700; font-size: 14px;">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0" style="font-size: 13px">Vợ/chồng</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0">Ông: Hà Văn Huy</p>
+                                                </div>
+                                            </div> -->
                                             <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
@@ -483,7 +616,7 @@ export default {
                 id: ``,
                 username: ``,
                 fullName: ``,
-                role: ``,
+                role: [],
                 email: ``,
                 phone: ``,
                 departmentName: ``,
@@ -551,6 +684,17 @@ export default {
             //             // this.getAssignmentList();
             //         }
             //     }).catch(err => console.log(err));
+        },
+
+        async createAssignment(){
+            await axios.post(`assignment/add-new`, this.assignmentEdit)
+            .then((res) => {
+                if(res){
+                    this.$router.push(`/assignment`);
+                    console.log(`assnm` + res.data.data.taskName);
+                    this.getAssignmentList();
+                }
+            }).catch(err => console.log(err));
         },
 
         async getAssignmentById(asmId) {
@@ -644,7 +788,8 @@ export default {
                         this.userInfo.bankShortName = res.data.bankShortName;
                         this.userInfo.isActivated = res.data.isActivated;
                         console.log(`usserId Info đây rồi: ` + userId);
-                        console.log(`userInfo đây rồi: `+this.userInfo.fullName);
+                        console.log(`userInfo đây rồi: ` + this.userInfo.fullName);
+                        console.log(`userInfo rolename đây rồi: ` + this.userInfo.role);
                     }
                 }).catch(err => console.log(err));
         },
@@ -674,6 +819,7 @@ export default {
 }
 </script>
 
-<style>.employee-head h2 {
+<style>
+.employee-head h2 {
     font-size: 18px;
 }</style>

@@ -74,7 +74,7 @@ function formatState(state) {
 // $('.selectRole').selectpicker();
 
 $(document).ready(function () {
-  $('.selectBank').select2({
+  $('.selectBank',).select2({
     placeholder: "Ngân hàng",
     templateResult: formatState
   });
@@ -110,6 +110,17 @@ $(document).ready(function () {
 //     }
 //   })
 // })
+
+$(document).ready(function () {
+
+  $('#addNewDepartment').click(function () {
+    if ($('#formAddNewDepartment').css("display") == 'none') {
+      $('#formAddNewDepartment').slideDown();
+    } else {
+      $('#formAddNewDepartment').slideUp();
+    }
+  })
+})
 
 // $(document).ready(function(){
 //   $("#infoAsm").click(function(){

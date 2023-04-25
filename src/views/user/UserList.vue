@@ -29,7 +29,7 @@
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                         <div class="col-xl-10 col-sm-8 col-12 ">
-                            <label class="employee_count">{{ totalItems }} People</label>
+                            <label class="employee_count">{{ totalItems }} Người</label>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
                             <a href="/user-grid" class="btn-view "><i data-feather="grid"></i> </a>
@@ -47,14 +47,13 @@
                                     <div class="table-title">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <h2>Manage <b>Employees</b></h2>
+                                                <h2>Quản lý <b>Nhân viên</b></h2>
                                             </div>
                                             <div class="col-sm-6">
                                                 <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                                        class="material-icons">&#xE147;</i> <span>Add New
-                                                        Employee</span></a>
+                                                        class="material-icons">&#xE147;</i> <span>Thêm mới nhân viên</span></a>
                                                 <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
-                                                        class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                                                        class="material-icons">&#xE15C;</i> <span>Xóa</span></a>
                                             </div>
                                         </div>
                                     </div>

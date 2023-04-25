@@ -35,7 +35,7 @@
                             <a href="#" class="btn-view active "><i data-feather="grid"></i> </a>
                         </div>
                         <div class="col-xl-1 col-sm-2 col-12 ">
-                            <a href="/user-list" class="btn-view "><i data-feather="list"></i> </a>
+                            <a href="nhan-vien/danh-sach" class="btn-view "><i data-feather="list"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                             <div class="row">
                                 <div class="col-xl-4 col-sm-12 col-12 " v-for="user in userList">
                                     <div class="employee_grid">
-                                        <a href="/profile"><img src="assets/img/profiles/avatar-14.jpg"
-                                                alt="profile" /></a>
+                                        <a href="/nhan-vien/thong-tin-ca-nhan"><img src="assets/img/profiles/avatar-14.jpg"
+                                                alt="Thông tin cá nhân" /></a>
                                         <h5>{{ user.fullName }}</h5>
                                         <label>{{ user.role }}</label>
                                         <!-- <a><span class="__cf_email__"
