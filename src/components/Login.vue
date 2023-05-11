@@ -64,6 +64,7 @@ export default {
 	name: `Login`,
 	data() {
 		return {
+			userId: ``,
 			username: ``,
 			password: ``
 		}
@@ -71,10 +72,12 @@ export default {
 	methods: {
 		async handelLogin() {
 			const res = await axios.post(`auth/sign-in`, {
+				userId: this.userId,
 				username: this.username,
 				password: this.password
 			})
 			.then(res => {
+				localStorage.setItem(`userId`, res.data.userId);
 				localStorage.setItem(`token`, res.data.accessToken);
 				console.log(res);
 				this.$router.push(`/trang-chu`);

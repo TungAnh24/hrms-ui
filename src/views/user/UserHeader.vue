@@ -97,7 +97,7 @@
 											<div class="form-group">
 												<select id="bankId" name="bankId" v-model="user.bankShortName"
 													class="selectBank" style="width: 100%;">
-													<option disabled>Ngân hàng</option>
+													<option selected>Ngân hàng</option>
 													<option class="bankInfo" :linkIcon=bank.logo :bankFullName=bank.name v-for="bank in bankList"
 														:key="bank.shortName" :value="bank.shortName">
 														{{ bank.name }}

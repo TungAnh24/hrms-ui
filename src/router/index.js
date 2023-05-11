@@ -9,6 +9,8 @@ import AssignmentIndex from "../views/assignment/AssignmentIndex.vue"
 import AssignmentEdit from "../views/assignment/AssignmentEdit.vue"
 import DepartmentIndex from "../views/department/DepartmentIndex.vue"
 import LeaveIndex from "../views/leave/LeaveIndex.vue"
+import LeaveRegister from "../views/leave/LeaveRegister.vue"
+import ContractIndex from "../views/contract/ContractIndex.vue"
 const routes = [
   {
     path: "/login",
@@ -75,8 +77,18 @@ const routes = [
   },
   {
     path: "/nghi-phep",
-    name: "leave",
+    name: "leaveIndex",
     component: LeaveIndex
+  },
+  {
+    path: "/dang-ky-nghi-phep",
+    name: "leaveRegister",
+    component: LeaveRegister
+  },
+  {
+    path: "/test",
+    name: "ContractIndex",
+    component: ContractIndex
   },
   {
     path: "/about",

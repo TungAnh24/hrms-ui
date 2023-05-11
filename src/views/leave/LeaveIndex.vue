@@ -7,7 +7,7 @@
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="breadcrumb-path ">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><img src="assets/img/dash.png" class="mr-2"
+                            <li class="breadcrumb-item"><a href="trang-chu"><img src="assets/img/dash.png" class="mr-2"
                                         alt="breadcrumb">Trang chủ</a>
                             </li>
                             <li class="breadcrumb-item active"> Nghỉ phép</li>
@@ -216,8 +216,8 @@
                                             <th>Số ngày nghỉ</th>
                                             <th>Số ngày còn lại </th>
                                             <th>Chú thích</th>
-                                            <th>Trạng thái</th>
-                                            <th>Thao tác</th>
+                                            <!-- <th>Trạng thái</th>
+                                            <th>Thao tác</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -243,9 +243,8 @@
                                                 <a v-if="leaveInActived.isActivated == false" class="action_label3" id="pheDuyet" @click="approvedLeave(leaveInActived.id)">Phê duyệt</a>
                                             </td>
                                             <td>
-                                                <a style="padding: 1px 9px 8px 16px;" class="action_label4"
-                                                        data-toggle="modal" data-target="#delete" id="xoaLeave" @click="getLeaveById(leaveInActived.id)"> Xóa<i
-                                                            data-feather="trash-2"></i>
+                                                <a class="action_label4"
+                                                        data-toggle="modal" data-target="#delete" id="xoaLeave" @click="getLeaveById(leaveInActived.id)">Từ chối<i data-feather="trash-2"></i>
                                                     </a>
                                             </td>
                                         </tr>
@@ -375,10 +374,10 @@ export default {
     created() {
         this.getListLeaveInActived();
     },
-    mounted() {
+    updated(){
         afterRender();
     },
-    // updated(){
+    // mounted() {
     //     afterRender();
     // }
 }
@@ -389,12 +388,12 @@ export default {
     background: transparent;
     border-color: rgb(145, 185, 237);
     color: #3A3B3F;
-    background-color: rgb(145, 185, 237);
+    background-color: #22af46;
 }
 #xoaLeave:hover{
     background: transparent;
     border-color: rgb(220, 68, 71);
     color: #3A3B3F;
-    background-color: rgb(239, 115, 115);
+    background-color: #dc3545;
 }
 </style>

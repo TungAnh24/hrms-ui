@@ -33,24 +33,24 @@
                             <a href="/nhan-vien"><img src="assets/img/employee.svg" alt="sidebar_img"><span>
                                     Nhân viên</span></a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="/nhan-vien"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
                                     Công ty</span></a>
                         </li>
                         <li>
                             <a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img">
                                 <span>Lịch</span></a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="/nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
                                 <span>Nghỉ phép</span></a>
                         </li>
                         <li>
-                            <a href="/nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
+                            <a href="/dang-ky-nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
                                 <span>Đăng ký nghỉ phép</span></a>
                         </li>
                         <li>
-                            <a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Review</span></a>
+                            <a href="review.html"><img src="assets/img/review.svg" alt="sidebar_img"><span>Hợp đồng</span></a>
                         </li>
                         <li>
                             <a href="report.html"><img src="assets/img/report.svg" alt="sidebar_img"><span>Báo cáo</span></a>

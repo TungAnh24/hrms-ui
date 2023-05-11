@@ -8,7 +8,7 @@ function afterRender() {
     }
     init(); $('body').append('<div class="sidebar-overlay"></div>'); $(document).on('click', '#mobile_btn', function () { $wrapper.toggleClass('slide-nav'); $('.sidebar-overlay').toggleClass('opened'); $('html').addClass('menu-opened'); return false; }); $(".sidebar-overlay").on("click", function () { $wrapper.removeClass('slide-nav'); $(".sidebar-overlay").removeClass("opened"); $('html').removeClass('menu-opened'); }); $("#mobile_btn_close").click(function () { $("html").removeClass("menu-opened"); $(".main-wrapper").removeClass("slide-nav"); $(".sidebar-overlay").removeClass("opened"); }); if ($('.page-wrapper').length > 0) { var height = $(window).height(); $(".page-wrapper").css("min-height", height); }
     $(window).resize(function () { if ($('.page-wrapper').length > 0) { var height = $(window).height(); $(".page-wrapper").css("min-height", height); } }); if ($('.select').length > 0) { $('.select').select2({ minimumResultsForSearch: -1, width: '100%' }); }
-    if ($('.datetimepicker').length > 0) { $('.datetimepicker').datetimepicker({ format: 'DD-MM-YYYY', icons: { up: "fas fa-angle-up", down: "fas fa-angle-down", next: 'fas fa-angle-right', previous: 'fas fa-angle-left' } }); }
+    if ($('.datetimepicker').length > 0) { $('.datetimepicker').datepicker({ format: 'DD-MM-YYYY', language: 'vi',icons: { up: "fas fa-angle-up", down: "fas fa-angle-down", next: 'fas fa-angle-right', previous: 'fas fa-angle-left' } }); }
     if ($('[data-toggle="tooltip"]').length > 0) { $('[data-toggle="tooltip"]').tooltip(); }
     if ($('.datatable').length > 0) { $('.datatable').DataTable({ "bFilter": false, }); }
     if ($slimScrolls.length > 0) { $slimScrolls.slimScroll({ height: 'auto', width: '100%', position: 'right', size: '7px', color: '#ccc', allowPageScroll: false, wheelStep: 10, touchScrollStep: 100 }); var wHeight = $(window).height() - 60; $slimScrolls.height(wHeight); $('.sidebar .slimScrollDiv').height(wHeight); $(window).resize(function () { var rHeight = $(window).height() - 60; $slimScrolls.height(rHeight); $('.sidebar .slimScrollDiv').height(rHeight); }); }
@@ -43,6 +43,20 @@ function afterRender() {
       if (e.button == 2) { return true; }
       return true;
     });
+
+    $.fn.datepicker.dates['vi'] = {
+      days: ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy", "Chủ Nhật"],
+      daysShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+      daysMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+      months: ["Tháng Một", "Tháng Hai", "Tháng Ba", "Tháng Tư", "Tháng Năm", "Tháng Sáu", "Tháng Bảy", "Tháng Tám", "Tháng Chín", "Tháng Mười", "Tháng Mười Một", "Tháng Mười Hai"],
+      monthsShort: ["Th.1", "Th.2", "Th.3", "Th.4", "Th.5", "Th.6", "Th.7", "Th.8", "Th.9", "Th.10", "Th.11", "Th.12"],
+      today: "Hôm Nay",
+      suffix: [],
+      meridiem: ["Sáng", "Chiều"],
+      weekStart: 1,
+      format: "dd/mm/yyyy hh:ii"
+    };
+
   })(jQuery);
 };
 
@@ -99,17 +113,17 @@ $(document).ready(function () {
 //   }
 // })
 
-// $(document).ready(function () {
+$(document).ready(function () {
 
-//   $('.departmentInfo').click(function () {
-//     // var styleDpmInfo = $(selector)
-//     if ($('#tablee').css("display") == 'none') {
-//       $('#tablee').slideDown();
-//     } else {
-//       $('#tablee').slideUp();
-//     }
-//   })
-// })
+  $('.departmentInfo').click(function () {
+    // var styleDpmInfo = $(selector)
+    if ($('#tablee').css("display") == 'none') {
+      $('#tablee').slideDown();
+    } else {
+      $('#tablee').slideUp();
+    }
+  })
+})
 
 $(document).ready(function () {
 
@@ -119,16 +133,28 @@ $(document).ready(function () {
     } else {
       $('#formAddNewDepartment').slideUp();
     }
-  })
-})
+  });
 
-// $(document).ready(function(){
-//   $("#infoAsm").click(function(){
-//     if($(this).parents(".card-header").parent(".card").find(".table-responsive").css("display") == 'none'){
-//       debugger;
-//       $(this).parents(".card-header").parent(".card").find(".table-responsive").slideDown();
-//     } else {
-//       $(this).parents(".card-header").parent(".card").find(".table-responsive").slideUp();
-//     }
-//   })
-// })
+  $(".chonLoaiNghiPhep").change(function(){
+    if($(".chonLoaiNghiPhep").val() != ""){
+      $(".formRegisterLeave").slideDown();
+    } else {
+      $(".formRegisterLeave").slideUp();
+    }
+  });
+
+  $('.tuNgay').inputmask();
+  $('.denNgay').inputmask();
+
+  $('.datepicker').datepicker({
+    language:'vi',
+    format:'dd/mm/yyyy'
+  });
+
+
+  $('.btnHuyRegisLeave').click(function(){
+    if($('.formRegisterLeave').css("display") != 'none'){
+      $('.formRegisterLeave').slideUp();
+    }
+  })
+});
