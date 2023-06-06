@@ -79,8 +79,12 @@ export default {
 			.then(res => {
 				localStorage.setItem(`userId`, res.data.userId);
 				localStorage.setItem(`token`, res.data.accessToken);
-				console.log(res);
-				this.$router.push(`/trang-chu`);
+				console.log(`code đây rồi:  ` + res.data.code);
+				if(res.data.code == 401) {
+					this.$router.push(`/`);
+				} else {
+					this.$router.push(`/trang-chu`);
+				}
 			})
 		}
 	}
