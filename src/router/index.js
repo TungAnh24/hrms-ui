@@ -11,9 +11,10 @@ import DepartmentIndex from "../views/department/DepartmentIndex.vue"
 import LeaveIndex from "../views/leave/LeaveIndex.vue"
 import LeaveRegister from "../views/leave/LeaveRegister.vue"
 import ContractIndex from "../views/contract/ContractIndex.vue"
+import Profile from "../views/profile/Profile.vue"
 const routes = [
   {
-    path: "/login",
+    path: "/dang-nhap",
     name: "login",
     component: () => import(`../components/Login.vue`),
     meta: {requiresAuth: false}
@@ -90,6 +91,11 @@ const routes = [
     path: "/test",
     name: "ContractIndex",
     component: ContractIndex
+  },
+  {
+    path: "/ho-so",
+    name: "Profile",
+    component: Profile
   },
   {
     path: "/about",

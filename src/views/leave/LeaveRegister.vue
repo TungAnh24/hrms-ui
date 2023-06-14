@@ -128,7 +128,7 @@
                                     <div class="col-xl-12 col-sm-12 col-12 ">
                                         <div class="form-group">
                                             <label>Chú thích </label>
-                                            <textarea rows="4" cols="50" placeholder="Chú thích...">	</textarea>
+                                            <textarea rows="4" cols="50" placeholder="Chú thích..." v-model="leave.description">	</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -150,23 +150,24 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-titles">Phiếu nghỉ phép đang chờ phê duyệt</h2>
+                            <p class="pt-2 errLeave" style="color: red; font-size: 18px; display: block;">( Bạn không có phiếu nghỉ phép nào cần phê duyệt! )</p>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-responsive no-footer">
+                                <table class="table table-responsive no-footer tableLstnoneApprovbe" style="display: none;">
                                     <thead>
                                         <tr>
                                             <th>Ngày</th>
-                                            <th style="padding: 12px 150px;">Thời gian gia hạn</th>
-                                            <th style="padding: 12px 150px;">Chú thích </th>
+                                            <th>Thời gian gia hạn</th>
+                                            <th>Chú thích </th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody v-for="leaveNoneApprove in lstLeaveUserNoneApprove">
                                         <tr>
                                             <td><label>{{ leaveNoneApprove.dateApply }} </label></td>
-                                            <td style="padding: 12px 150px;"><label>{{ leaveNoneApprove.duration }} </label></td>
-                                            <td style="padding: 12px 150px;"><label>Chú thích</label></td>
+                                            <td><label>{{ leaveNoneApprove.duration }} </label></td>
+                                            <td><label>{{ leaveNoneApprove.description }}</label></td>
                                             
                                             <td>
                                                 <a class="action_label4" data-toggle="modal" data-target="#deleteLeaveApprove"
@@ -186,10 +187,11 @@
                     <div class="card ">
                         <div class="card-header">
                             <h2 class="card-titles">Danh sách các ngày đã nghỉ</h2>
+                            <p class="pt-2 errLeaveApprove" style="color: red; font-size: 18px; display: block;">( Trống! )</p>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-responsive no-footer">
+                                <table class="table table-responsive no-footer tableLstLeaveUserApprove" style="display: none;">
                                     <thead>
                                         <tr>
                                             <th>Ngày</th>
@@ -201,7 +203,7 @@
                                         <tr>
                                             <td><label>{{ leaveApprove.dateApply }} </label></td>
                                             <td style="padding: 12px 150px;"><label>{{ leaveApprove.duration }} </label></td>
-                                            <td style="padding: 12px 150px;"><label>Chú thích</label></td>
+                                            <td style="padding: 12px 150px;"><label>{{ leaveApprove.description }}</label></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -311,15 +313,16 @@ export default {
     },
     data() {
         return {
-            lstLeaveUserNoneApprove: null,
+            lstLeaveUserNoneApprove: [],
             userId: null,
-            lstLeaveUserApprove: null,
+            lstLeaveUserApprove: [],
             leaveId: null,
             leave: {
                 leaveId: 0,
                 eplId: ``,
                 duration : ``,
-                dateApply: ``
+                dateApply: ``,
+                description: ``
             }
         }
     },
@@ -341,6 +344,15 @@ export default {
             await axios.get(`leave/list-leave-user-none-approve/` + userId)
                 .then(res => {
                     this.lstLeaveUserNoneApprove = res.data.data;
+                    debugger;
+                    if(this.lstLeaveUserNoneApprove.length <= 0){
+                        $(`.tableLstnoneApprovbe`).css(`display`, `none`);
+                        $(`.errLeave`).css(`display`, `block`);
+                    } 
+                    if(this.lstLeaveUserNoneApprove.length > 0) {
+                        $(`.tableLstnoneApprovbe`).css(`display`, `block`);
+                        $(`.errLeave`).css(`display`, `none`);
+                    }
                 }).catch(err => console.log(err));
         },
 
@@ -349,6 +361,15 @@ export default {
             .then(res => {
                 if(res != null){
                     this.lstLeaveUserApprove = res.data.data;
+
+                    if(this.lstLeaveUserApprove.length <= 0){
+                        $(`.tableLstLeaveUserApprove`).css(`display`, `none`);
+                        $(`.errLeaveApprove`).css(`display`, `block`);
+                    } 
+                    if(this.lstLeaveUserApprove.length > 0) {
+                        $(`.tableLstLeaveUserApprove`).css(`display`, `block`);
+                        $(`.errLeaveApprove`).css(`display`, `none`);
+                    }
                 }
             })
         },
@@ -371,7 +392,9 @@ export default {
 
         async createLeave(){
             this.leave.eplId = this.userId;
-            await axios.post(`leave/add-new`, this.leave)
+            await axios.post(`leave/add-new`, this.leave).then((() =>{
+                this.$toast.add({ severity: 'success', summany: 'success', detail: 'Đăng ký thành công!', life: 1500, closable: false });
+            }))
             .catch(err => console.log(err));
             this.getListLeaveUserNoneApprove(this.userId);
         }
@@ -389,8 +412,7 @@ export default {
             $this.leave.dateApply = $('.tuNgay').val();
             console.log($this.leave.dateApply);
         })
-    },
-    updated(){
+        
         afterRender();
     }
 }

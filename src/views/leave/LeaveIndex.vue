@@ -238,7 +238,7 @@
                                             <td><label>{{ leaveInActived.dateApply }} </label></td>
                                             <td class="text-center"><label>3</label></td>
                                             <td class="text-center"><label>9</label></td>
-                                            <td><label>ĐichơivớiNgườiYêu</label></td>
+                                            <td><label>{{ leaveInActived.description }} </label></td>
                                             <td>
                                                 <a v-if="leaveInActived.isActivated == false" class="action_label3" id="pheDuyet" @click="approvedLeave(leaveInActived.id)">Phê duyệt</a>
                                             </td>
@@ -377,9 +377,9 @@ export default {
     updated(){
         afterRender();
     },
-    // mounted() {
-    //     afterRender();
-    // }
+    mounted() {
+        afterRender();
+    }
 }
 </script>
 

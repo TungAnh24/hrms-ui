@@ -3507,6 +3507,7 @@ table.table-inbox tbody tr.checked {
 	min-height: 100vh;
 }
 .page-wrapper {
+	padding-top: 70px;
 	margin-left: 240px;
 	position: relative;
 	transition: all 0.4s ease;

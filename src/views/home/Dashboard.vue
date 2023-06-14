@@ -148,7 +148,7 @@
                                         </div>
                                         <div class="team-content">
                                             <label>{{ user.fullName }}</label>
-                                            <span>{{ user.role }}</span>
+                                            <span v-for="r in user.role">{{ r }}</span>
                                         </div>
                                     </div>
                                     <div class="team-action">

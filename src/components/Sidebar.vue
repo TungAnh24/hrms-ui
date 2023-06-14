@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <ul>
+                    <ul id="menuSideBar">
                         <li class="active">
                             <a href="/trang-chu"><img src="assets/img/home.svg" alt="sidebar_img">
                                 <span>Trang chủ</span></a>
@@ -33,19 +33,11 @@
                             <a href="/nhan-vien"><img src="assets/img/employee.svg" alt="sidebar_img"><span>
                                     Nhân viên</span></a>
                         </li>
-                        <!-- <li>
-                            <a href="/nhan-vien"><img src="assets/img/company.svg" alt="sidebar_img"> <span>
-                                    Công ty</span></a>
-                        </li>
-                        <li>
-                            <a href="calendar.html"><img src="assets/img/calendar.svg" alt="sidebar_img">
-                                <span>Lịch</span></a>
-                        </li> -->
-                        <li>
+                        <li class="moduleNghiPhep">
                             <a href="/nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
                                 <span>Nghỉ phép</span></a>
                         </li>
-                        <li>
+                        <li class="dangkyNghiPhep">
                             <a href="/dang-ky-nghi-phep"><img src="assets/img/leave.svg" alt="sidebar_img">
                                 <span>Đăng ký nghỉ phép</span></a>
                         </li>
@@ -63,16 +55,33 @@
                             <a href="settings.html"><img src="assets/img/settings.svg"
                                     alt="sidebar_img"><span>Cài đặt</span></a>
                         </li>
-                        <li>
-                            <a href="profile.html"><img src="assets/img/profile.svg" alt="sidebar_img">
+                        <li class="dangkyNghiPhep">
+                            <a href="/ho-so"><img src="assets/img/profile.svg" alt="sidebar_img">
                                 <span>Hồ sơ</span></a>
                         </li>
                     </ul>
                     <ul class="logout">
                         <li>
-                            <a href="profile.html"><img src="assets/img/logout.svg" alt="sidebar_img"><span>Đăng xuất</span></a>
+                            <a data-target="#dangXuat" data-toggle="modal"><img src="assets/img/logout.svg" alt="sidebar_img"><span>Đăng xuất</span></a>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>ư
+    <div class="customize_popup">
+        <div class="modal fade" id="dangXuat" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header text-centers border-0">
+                        <h5 class="modal-title text-center" id="staticBackdropLabels1">Đăng xuất hệ thống?
+                        </h5>
+                    </div>
+                    <div class="modal-footer text-centers">
+                        <button type="button" class="btn btn-primary" @click="logOut()"
+                            data-dismiss="modal">Đăng xuất</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,7 +92,61 @@
 <script>
 export default {
     name: `Siderbar`,
+    methods: {
+        logOut(){
+            localStorage.removeItem("token");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("role");
+            this.$router.push(`/`);
+            window.location.href = '/';
+        },
+    },
     mounted() {
+        $(document).ready(function(){
+            var roleAdmin = `ROLE_ADMIN`;
+            var roleStorage = localStorage.getItem("role");
+            var roleSplit = roleStorage.split(',');
+            console.log(roleSplit)
+            var role = ``;
+            for (let i = 0; i < roleSplit.length; i++) {
+                role = roleSplit[i];
+                if(role == roleAdmin){
+                    $('.moduleNghiPhep').css('display', 'block');
+                    $('.dangkyNghiPhep').css('display', 'none');
+                } else {
+                    $('.moduleNghiPhep').css('display', 'none');
+                    $('.dangkyNghiPhep').css('display', 'block');
+                }
+            }
+
+            function checkRole(roleName) {
+                var role = `ROLE_ADMIN`;
+                if(roleName == role){
+                    return true;
+                }
+                return false;
+            }
+
+            // if(role !== 'ROLE_ADMIN'){
+            //     $('.moduleNghiPhep').css('display', 'none');
+            //     $('.dangkyNghiPhep').css('display', 'block');
+            // } else {
+            //     $('.moduleNghiPhep').css('display', 'block');
+            //     $('.dangkyNghiPhep').css('display', 'none');
+            // }
+
+        });
+
+        if ($("#menuSideBar").length > 0) {
+            $("#menuSideBar").on("click", "a",function (e) { 
+                console.log(e);
+                // $("#menuSideBar > li").click(function(e){ 
+                // e.preventDefault();
+                $("#menuSideBar li").removeClass("active");
+                $(this).closest("li").addClass("active");
+                // $(this).addClass("active");
+            });
+        }
         afterRender();
     },
     updated() {

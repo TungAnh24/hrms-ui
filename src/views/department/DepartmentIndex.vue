@@ -1,6 +1,7 @@
 <template>
     <Header></Header>
     <Sidebar></Sidebar>
+    <Toast/>
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
@@ -18,9 +19,9 @@
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="head-link-set">
                         <ul>
-                            <li><a class="active" href="#">All</a></li>
+                            <li><a href="/van-phong">All</a></li>
                             <li><a href="/cong-viec">Công việc</a></li>
-                            <li><a href="/van-phong">Phòng ban</a></li>
+                            <li><a class="active" href="/van-phong">Phòng ban</a></li>
                         </ul>
                         <!-- <a class="btn-add" href="#addEmployeeModal" data-toggle="modal"><i data-feather="plus"></i> Thêm
                             mới</a> -->
@@ -49,20 +50,21 @@
                             <div class="row">
                                 <!-- <div class="row"> -->
                                 <div class="col-xl-5 col-sm-12 col-12 " style="font-size: 15px;">
-                                    <input type="text" placeholder="Tên phòng..." class="input-form"
+                                    <input id="tenPhong" type="text" placeholder="Tên phòng..." class="input-form abc"
                                         v-model="department.departmentName">
+                                    <p class="pt-2 errTenPhong" style="color: red; font-size: 13px;">Tên phòng không được để trống!</p>
                                 </div>
                                 <div class="col-xl-3 col-sm-12 col-12 " style="font-size: 15px;">
-                                    <input type="text" placeholder="Mã phòng..." class="input-form"
+                                    <input id="maPhong" type="text" placeholder="Mã phòng..." class="input-form abc"
                                         v-model="department.departmentCode">
+                                    <p class="pt-2 errMaPhong" style="color: red; font-size: 13px;">Mã phòng không được để trống!</p>
                                 </div>
                                 <!-- </div> -->
-
                                 <div class="col-xl-2 col-sm-6 col-6 ">
-                                    <a href="#" class="btn-create " @click="createDepartment()">Tạo phòng </a>
+                                    <a class="btn-create btnTaoPhong" @click="createDepartment()">Tạo phòng </a>
                                 </div>
                                 <div class="col-xl-2 col-sm-6 col-6 ">
-                                    <a href="#" class="btn-cancel ">Hủy </a>
+                                    <a id="btnHuy" class="btn-cancel ">Hủy </a>
                                 </div>
                             </div>
                         </div>
@@ -356,19 +358,20 @@
                         <div class=" col-md-12 p-0">
                             <div class=" form-popup">
                                 <label>Tên phòng</label>
-                                <input type="text" v-model="department.departmentName">
+                                <input id="tenPhong" type="text" v-model="department.departmentName">
+                                <p class="pt-2 errTenPhong" style="color: red; font-size: 13px;">Tên phòng không được để trống!</p>
                             </div>
                         </div>
                         <div class=" col-md-12 p-0">
                             <div class=" form-popup">
                                 <label>Mã phòng</label>
-                                <input type="text" v-model="department.departmentCode">
+                                <input id="maPhong" type="text" v-model="department.departmentCode">
+                                <p class="pt-2 errMaPhong" style="color: red; font-size: 13px;">Mã phòng không được để trống!</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-apply" @click="updateDepartment(dpmId)"
-                            data-dismiss="modal">Sửa</button>
+                        <button type="button" class="btn btn-apply btnSuaPhong" @click="updateDepartment(dpmId)">Sửa</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
@@ -412,15 +415,34 @@ export default {
         },
 
         async createDepartment() {
-            await axios.post(`department/add-new`, this.department)
-                .then(res => {
-                    if (res != null) {
-                        this.$router.push(`/van-phong`);
-                        this.getListDepartment();
-                        this.department.departmentName = ``;
-                        this.department.departmentCode = ``;
-                    }
-                }).catch(err => console.log(err));
+             
+            var check = $('#tenPhong').val() !== '' && $('#maPhong').val() !== ''; 
+            debugger;
+            $('.errTenPhong').css('display', $('#tenPhong').val() == '' ? 'block' : 'none');
+            $('.errMaPhong').css('display',  $('#maPhong').val() == '' ? 'block' : 'none');
+            // var check =  $(".abc").map(function() { 
+            //     return this.value != ''}).toArray().filter(g=> !g).length == 0;
+            if (check){
+                await axios.post(`department/add-new`, this.department)
+                            .then(res => {
+                                if (res) {
+                                    console.log(res.data);
+                                    this.$toast.add({ severity: 'success', summany: 'success', detail: 'Thêm mới thành công!', life: 1500, closable: false });
+                                    this.$router.push(`/van-phong`);
+                                    this.department.departmentName = ``;
+                                    this.department.departmentCode = ``;
+                                }
+                            }).catch(err => {
+                                console.log(err.response.data.error);
+                                this.$toast.add({ severity: 'error', summany: 'error', detail: err.response.data.error[0], life: 1500, closable: false });
+                                console.log(err);
+                            });
+                            
+                            this.getListDepartment();
+            }
+            // else{
+            //     $(".abc").parent().addClass("div1")
+            // }
         },
 
         async getDepartmentId(dpmId) {
@@ -435,25 +457,30 @@ export default {
         },
 
         async updateDepartment(dpmId) {
+            var check = $('#tenPhong').val() !== '' && $('#maPhong').val() !== ''; 
+            $('.errTenPhong').css('display', $('#tenPhong').val() == '' ? 'block' : 'none');
+            $('.errMaPhong').css('display',  $('#maPhong').val() == '' ? 'block' : 'none');
+            if(check){
             await axios.post(`department/update/` + dpmId, this.department)
                 .then(res => {
-                    // if(res != null) {
-                    this.department = res.data.data;
-                    // this.department.departmentName = res.data.data.departmentName;
-                    // this.department.departmentCode = res.data.data.departmentCode;
-                    // console.log(`AAAAA: ` + this.department.departmentName);
-                    // this.$router.push(`/department`)
-                    // }
+                    if(res) {
+                    console.log(this.department.departmentName);
+                    this.$toast.add({ severity: 'success', summany: 'success', detail: 'Sửa thành công!', life: 1500, closable: false });
+                    // this.$router.push(`/van-phong`);
+                    }
                     this.getListDepartment();
                 }).catch(err => {
+                    this.$toast.add({ severity: 'error', summany: 'error', detail: 'Tên phòng hoặc mã phòng đã tồn tại!', life: 1500, closable: false });
                     console.log(err);
                 })
+            }
         },
 
         async deleteDepartment(dpmId){
             await axios.post(`department/delete/` + dpmId)
             .then(res => {
               if(res != null) {
+                this.$toast.add({ severity: 'success', summany: 'success', detail: 'Xóa thành công!', life: 1500, closable: false });
                 this.getListDepartment();
               }  
             })
@@ -462,11 +489,30 @@ export default {
         toggleTable(event) {
             $(event.target).parents(".card-body").parent(".card").find(".table-responsive").slideToggle();
         }
+
+
     },
     created() {
         this.getListDepartment();
     },
     updated() {
+       $(document).ready(function(){
+        $('.errTenPhong').css('display', 'none');
+        $('.errMaPhong').css('display', 'none');
+        $('#addNewDepartment, .btn-cancel, .btnSuaPhong').click(function() {
+            $('#tenPhong').val('');
+            $('#maPhong').val('');
+            $('.errTenPhong').css('display', 'none');
+            $('.errMaPhong').css('display', 'none');
+        }); 
+
+        // $('.btnSuaPhong').click(function() {
+        //     $('.errTenPhong').css('display', 'none');
+        //     $('.errMaPhong').css('display', 'none');
+        // }); 
+
+       });
+
         afterRender();
     },
     // mounted() {
@@ -474,3 +520,8 @@ export default {
     // }
 }
 </script>
+<!-- <style>  
+.div1 >.abc:not(:placeholder-shown) +p, *:not(.div1) > .abc:placeholder-shown +p{
+display: none;
+}
+</style> -->

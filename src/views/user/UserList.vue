@@ -284,8 +284,8 @@ export default {
         },
         
         submitDelete: () => {
-                confirm('Bạn có muốn xóa người này không?')
-            }
+            confirm('Bạn có muốn xóa người này không?')
+        }
     },
     created() {
         this.getUserList();

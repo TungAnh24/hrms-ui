@@ -48,7 +48,8 @@
                                         <a href="/nhan-vien/thong-tin-ca-nhan"><img src="assets/img/profiles/avatar-14.jpg"
                                                 alt="Thông tin cá nhân" /></a>
                                         <h5>{{ user.fullName }}</h5>
-                                        <label>{{ user.role }}</label>
+                                        <label v-for="r in user.role" v-if="user.role.length > 0">{{ r }}</label>
+                                        <label v-else>Chưa xác định</label>
                                         <!-- <a><span class="__cf_email__"
                                                 data-cfemail="254844574c44464a51514a4b65405d44485549400b464a48">[email&#160;protected]</span></a> -->
                                         <label>{{ user.email }}</label>
@@ -131,14 +132,15 @@ export default {
                 }).catch(err => console.log(err));
         }
     },
-    mounted() {
-        afterRender();
+    created() {
+        this.getUserList();
     },
     updated() {
         afterRender();
-    },
-    created() {
-        this.getUserList();
     }
+    // ,
+    // mounted() {
+    //     afterRender();
+    // }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
     <Header></Header>
     <Sidebar></Sidebar>
+    <Toast />
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
@@ -23,7 +24,8 @@
                             <li><a class="active" href="/cong-viec">Công việc</a></li>
                             <li><a href="/van-phong">Phòng ban</a></li>
                         </ul>
-                        <a class="btn-add" data-toggle="modal" data-target="#addAsm"><i data-feather="plus"></i>
+                        <a class="btn-add btnThemMoiCongViec" data-toggle="modal" data-target="#addAsm"
+                            @click="clearInput()"><i data-feather="plus"></i>
                             Thêm mới</a>
                     </div>
                 </div>
@@ -39,12 +41,12 @@
 
                                                 <h2 class="text-warning">Số lượng người: {{ assignment.numberOfUserAssign
                                                 }}</h2>
-                                                <ul>
+                                                <ul id="thongTinDsNhanVien">
                                                     <li><a @click="getAssignmentById(assignment.asmId), getListUserInAsm(assignment.asmId)"
                                                             class="edit_employee" data-toggle="modal" data-target="#edit"
                                                             title="Sửa"><i data-feather="edit"></i></a></li>
                                                     <li><a @click="getAssignmentById(assignment.asmId)" class="edit_delete"
-                                                            data-toggle="modal" data-target="#delete" title="Xóa"><i
+                                                            data-toggle="modal" data-target="#deleteAsm" title="Xóa"><i
                                                                 data-feather="trash-2"></i></a>
                                                     </li>
                                                     <!-- <li><a @click="getAssignmentById(assignment.asmId)" class="edit_info" data-toggle="modal" data-target="#info"><i
@@ -143,7 +145,7 @@
                                                             <label>{{ user.email }}</label>
                                                         </td>
                                                         <td>
-                                                            <a @click="getUserInfo(user.id)" data-target="#userProfile"
+                                                            <a @click="getUserInfo(user.id)" data-target="#userProfile3"
                                                                 class="d-flex justify-content-center"
                                                                 style="align-items: center;" data-toggle="modal"
                                                                 title="Thông tin">
@@ -187,16 +189,16 @@
                     </div>
                     <div class="modal-body">
                         <div class=" col-md-12 p-0">
-                            <div class=" form-popup m-0">
+                            <div class=" form-popup m-0 formThemMoiCongViec">
                                 <div class="row">
                                     <label class="lable-form col-md-3 pt-2">Tên công việc: </label>
-                                    <input class="col-md-9 form-control" v-model="assignmentEdit.taskName"
+                                    <input class="col-md-9 form-control tenCongViec" v-model="assignmentEdit.taskName"
                                         placeholder="Tên công việc...">
                                 </div>
 
                                 <div class="row mt-3">
                                     <label class="lable-form col-md-3 pt-2">Chú thích: </label>
-                                    <input class="col-md-9 form-control" v-model="assignmentEdit.description"
+                                    <input class="col-md-9 form-control chuThich" v-model="assignmentEdit.description"
                                         placeholder="Chú thích...">
                                 </div>
 
@@ -213,9 +215,9 @@
                                     </div>
                                 </div> -->
 
-                                <div> a : {{ assignmentEdit.taskName }}</div>
+                                <!-- <div> a : {{ assignmentEdit.taskName }}</div>
                                 <div> b : {{ assignmentEdit.description }}</div>
-                                <div> c : {{ task_user.assign_by_id }}</div>
+                                <div> c : {{ task_user.assign_by_id }}</div> -->
                             </div>
                         </div>
                     </div>
@@ -257,16 +259,18 @@
                                                 <label>{{ epl.fullName }}</label>
                                             </option>
                                         </select>
+                                        <p class="pt-2 chooseEplErr" style="color: red; font-size: 12px; display: none;">
+                                            Bạn chưa chọn nhân viên!</p>
                                     </div>
                                 </div>
 
-                                <div> a : {{ task_user.task_id }}</div>
-                                <div> b : {{ task_user.assign_by_id }}</div>
+                                <!-- <div> a : {{ task_user.task_id }}</div>
+                                <div> b : {{ task_user.assign_by_id }}</div> -->
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        <button type="button" class="btn btn-primary btnThemNhanVien" data-dismiss="modal"
                             @click="updateTaskUser(taskIdDelete)">Thêm</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                     </div>
@@ -353,7 +357,7 @@
         </div>
     </div>
     <div class="customize_popup">
-        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
+        <div class="modal fade" id="deleteAsm" tabindex="-1" aria-labelledby="staticBackdropLabels1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content">
                     <div class="modal-header text-centers border-0">
@@ -370,9 +374,8 @@
             </div>
         </div>
     </div>
-
     <div class="customize_popup userProfile">
-        <div class="modal fade" id="userProfile" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
+        <div class="modal fade" id="userProfile3" tabindex="-1" aria-labelledby="staticBackdropLabela" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content" style="font-size: 13px;">
                     <section style="background-color: #eee;">
@@ -396,7 +399,7 @@
                                 <div class="col-lg-4">
                                     <div class="card mb-4">
                                         <div class="card-body text-center">
-                                            <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/337653271_870564127371622_2229865266489732045_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=7bc6BpDgbc8AX-jvkgl&_nc_ht=scontent.fhan2-4.fna&oh=00_AfB7nP-ui97_sbnLKwJqo0r-LrSXjeaGcC5MNrHQg3DiRg&oe=644B95F4"
+                                            <img src="assets/img/profiles/avatar-13.jpg"
                                                 alt="avatar" class="rounded-circle img-fluid" style="height: 150px;">
                                             <h5 class="my-3">{{ userInfo.fullName }}</h5>
                                             <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
@@ -412,7 +415,7 @@
                                     </div>
                                     <div class="card mb-4 mb-lg-0">
                                         <div class="card-body p-0">
-                                            <ul class="list-group list-group-flush rounded-3">
+                                            <ul class="list-group list-group-flush rounded-3" style="border-radius: 5px;">
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center p-3">
                                                     <i class="fas fa-globe fa-lg text-warning"></i>
@@ -686,15 +689,19 @@ export default {
             //     }).catch(err => console.log(err));
         },
 
-        async createAssignment(){
+        async createAssignment() {
             await axios.post(`assignment/add-new`, this.assignmentEdit)
-            .then((res) => {
-                if(res){
-                    this.$router.push(`/assignment`);
-                    console.log(`assnm` + res.data.data.taskName);
-                    this.getAssignmentList();
-                }
-            }).catch(err => console.log(err));
+                .then((res) => {
+                    if (res) {
+                        this.$toast.add({ severity: 'success', summany: 'success', detail: 'Thêm mới thành công!', life: 1500, closable: false });
+                        // this.$router.push(`/assignment`);
+                        console.log(`assnm` + res.data.data.taskName);
+                        this.getAssignmentList();
+                    }
+                }).catch(err => {
+                    this.$toast.add({ severity: 'error', summany: 'error', detail: err.response.data.error[0], life: 1500, closable: false });
+                    console.log(err);
+                });
         },
 
         async getAssignmentById(asmId) {
@@ -734,17 +741,27 @@ export default {
         async updateTaskUser() {
             await axios.post(`task-user/add-new`, this.task_user)
                 .then(res => {
-                    console.log(res.data.data);
-                }).catch(err => console.log(err));
-            $("#eplId").prop('selectedIndex', 0);
+                    console.log(res.data + 'aaaaa')
+                    this.$toast.add({ severity: 'success', summany: 'success', detail: 'Thêm người thành công!', life: 1500, closable: false });
+                }).catch(err => {
+                    if (err.response.data.error != 'fail' || err.response.data.error == 'Người này đã ở trong công việc!') {
+                        this.$toast.add({ severity: 'error', summany: 'error', detail: err.response.data.error[0], life: 1500, closable: false });
+                    }
+                });
+            this.task_user.assign_by_id = '';
+            // $("#eplId").prop('selectedIndex', 0);
             this.getAssignmentList();
         },
 
         async updateAssingment(asmId) {
             await axios.post(`assignment/update/` + asmId, this.assignmentEdit)
                 .then(res => {
+                    this.$toast.add({ severity: 'success', summany: 'success', detail: 'Sửa thành công!', life: 1500, closable: false });
                     this.assignmentEdit = res.data.data;
-                }).catch(err => console.log(err));
+                }).catch(err => {
+                    this.$toast.add({ severity: 'error', summany: 'error', detail: err.response.data.error[0], life: 1500, closable: false });
+                    console.log(err)
+                });
             this.getAssignmentList();
         },
 
@@ -753,6 +770,7 @@ export default {
             await axios.post(`assignment/delete/` + asmId)
                 .then(res => {
                     if (res != null) {
+                        this.$toast.add({ severity: 'success', summany: 'success', detail: 'Xóa thành công!', life: 1500, closable: false });
                         this.getAssignmentList();
                     }
                 }).catch(err => console.log(err));
@@ -774,6 +792,7 @@ export default {
         async getUserInfo(userId) {
             await axios.get(`user/` + userId)
                 .then(res => {
+                    debugger;
                     if (res != null) {
                         this.userInfo = res;
                         this.userInfo.fullName = res.data.fullName;
@@ -794,6 +813,11 @@ export default {
                 }).catch(err => console.log(err));
         },
 
+        clearInput() {
+            this.assignmentEdit.taskName = '';
+            this.assignmentEdit.description = '';
+        },
+
         toggleTable(event) {
             $(event.target).parents(".card-header").parent(".card").find(".table-responsive").slideToggle();
         }
@@ -803,10 +827,42 @@ export default {
         this.getAssignmentList();
         this.getListEpl();
     },
+    // mounted() {
+    //     var $this = this;
+    //     if ($("#eplId").length > 0) {
+    //         $('#eplId').change(function () {
+    //             var eplId = $('#eplId').val();
+    //             $this.task_user.assign_by_id = eplId;
+    //         });
+    //     };
+
+    //     $(document).ready(function () {
+    //         $('.btnThemNhanVien').click(function () {
+    //             debugger;
+    //             var eplId = $("#eplId").val();
+    //             if (eplId == null) {
+    //                 $('.chooseEplErr').css("display", "block")
+    //             } else {
+    //                 $('.chooseEplErr').css("display", "none")
+    //             }
+    //         })
+
+    //         // const clearInput = document.getElementsByClassName('btnThemMoiCongViec');
+    //         // clearInput.addEventListener('click', (e) => {
+    //         //     e.preventDefault();
+    //         //     clearInput.reset();
+    //         // });
+    //         // $('.btnThemMoiCongViec').click(function(){
+    //         //     debugger;
+    //         //     this.assignmentEdit.taskName = '';
+    //         //     this.assignmentEdit.description = '';
+    //         // })
+    //     });
+
+    //     // afterRender();
+    // },
+
     updated() {
-        afterRender();
-    },
-    mounted() {
         var $this = this;
         if ($("#eplId").length > 0) {
             $('#eplId').change(function () {
@@ -814,6 +870,26 @@ export default {
                 $this.task_user.assign_by_id = eplId;
             });
         };
+        $(document).ready(function () {
+            $('.selectRole ').change(function() {
+            var eplId = $("#eplId").val();
+                if (eplId != null) {
+                    $('.chooseEplErr').css("display", "none");
+                }
+            })
+            $('.btnThemNhanVien').click(function () {
+                // $("#eplId").prop('selectedIndex', 0);
+                var eplId = $("#eplId").val();
+                if (eplId == null) {
+                    $('.chooseEplErr').css("display", "block");
+                }
+            });
+
+            $('.btn-addmember').click(function () {
+                $('.chooseEplErr').css("display", "none");
+                $("#eplId").prop('selectedIndex', 0);
+            })
+        });
         afterRender();
     }
 }
@@ -822,4 +898,11 @@ export default {
 <style>
 .employee-head h2 {
     font-size: 18px;
-}</style>
+}
+
+
+/* #thongTinDsNhanVien li a:before{
+	transform: skewX(30deg);
+    transition: 0.3s all ease-in-out;
+} */
+</style>

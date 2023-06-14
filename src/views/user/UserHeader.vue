@@ -1,4 +1,5 @@
 <template>
+	<Toast />
 	<div class="col-xl-12 col-sm-12 col-12">
 		<div class="breadcrumb-path mb-4">
 			<ul class="breadcrumb">
@@ -105,10 +106,10 @@
 												</select>
 											</div>
 										</div>
-										<p>Bank account: {{ user.bankAccount }}</p>
+										<!-- <p>Bank account: {{ user.bankAccount }}</p>
 										<p>RoleIds: {{ user.rolesId }}</p>
 										<p>Bank shortName: {{ user.bankShortName }}</p>
-										<p>Bank fullName: {{ user.bankFullName }}</p>
+										<p>Bank fullName: {{ user.bankFullName }}</p> -->
 									</div>
 								</div>
 							</div>
@@ -153,12 +154,16 @@ export default {
 			await axios.post(`user/create-user`, this.user)
 				.then((res) => {
 					if (res) {
-						this.$router.push("/nhan-vien/danh-sach");
+						this.$toast.add({ severity: 'success', summany: 'success', detail: 'Thêm mới thành công!', life: 1500, closable: false});
+						this.$router.push("/nhan-vien");
 						console.log(res.data);
 						this.getUserList();
 					}
 				})
-				.catch((error) => console.log(error));
+				.catch((error) => {
+					console.log(error)
+					this.$toast.add({ severity: 'error', summany: 'error', detail: 'Thêm mới thất bại!', life: 1500, closable: false});
+				});
 		},
 
 		async getListRole() {
@@ -201,7 +206,12 @@ export default {
 			// console.log(event)
 			// // this.user.bankShortName = event.target.value
 			// this.user.rolesId = event;
-		}
+		},
+
+global() {
+	debugger;
+	this.$toast.add({ severity: 'success', summany: 'Login eeee', detail: 'Okeree' });
+}
 	},
 	created() {
 		this.getListRole();
